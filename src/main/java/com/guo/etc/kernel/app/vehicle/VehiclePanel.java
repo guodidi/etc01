@@ -1,8 +1,7 @@
 package com.guo.etc.kernel.app.vehicle;
 
 import com.guo.etc.kernel.app.base.BasePanel;
-import com.guo.etc.kernel.model.User;
-import com.guo.etc.kernel.service.UserService;
+import com.guo.etc.kernel.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
@@ -31,21 +30,21 @@ public class VehiclePanel extends BasePanel {
 
     @Override
     public String[] tableHeader() {
-        return new String[] {"序号","用户名","密码","年龄"};
+        return new String[] {"序号","车牌号码","车主","收费车型"};
     }
 
     @Override
     public String[][] tableData() {
-        UserService userService = context.getBean(UserService.class);
-        List<User> userList = userService.getAllUser();
+        VehicleService vehicleService = context.getBean(VehicleService.class);
+        List<Vehicle> vehicleList = vehicleService.findAllVehicle();
         int i=0;
-        if(userList != null) {
-            String[][] users = new String[userList.size()][4];
-            for(User user: userList) {
-                String[] temp = new String[] {String.valueOf(user.getId()),user.getUserName(),user.getUserPassword(),String.valueOf(user.getUserAge())};
-                users[i++] = temp;
+        if(vehicleList != null) {
+            String[][] vehicles = new String[vehicleList.size()][4];
+            for(Vehicle vehicle: vehicleList) {
+                String[] temp = new String[] {String.valueOf(vehicle.getId()),vehicle.getVehicelId(),vehicle.getVahicleOwner(),vehicle.getVehicleType()};
+                vehicles[i++] = temp;
             }
-            return users;
+            return vehicles;
         }
         return null;
     }
@@ -53,6 +52,5 @@ public class VehiclePanel extends BasePanel {
     @Override
     public JPanel setButtonJPanel() {
         return new VehicleMiddlePanel(context);
-        //return new MiddleButtonPanel(BasePanel.vehiclePanel);
     }
 }

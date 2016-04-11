@@ -1,9 +1,8 @@
 package com.guo.etc.kernel.app.vehicle;
 
 import com.guo.etc.kernel.app.base.ReloadPanel;
-import com.guo.etc.kernel.app.base.data.DataTable;
-import com.guo.etc.kernel.model.User;
-import com.guo.etc.kernel.service.UserService;
+import com.guo.etc.kernel.model.Vehicle;
+import com.guo.etc.kernel.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
@@ -171,26 +170,27 @@ public class VehicleDialog extends JDialog implements ActionListener {
     }
 
     private void addUser() {
-        UserService userService = (UserService)context.getBean(UserService.class);
-        User user = new User();
-        user.setUserAge(Integer.parseInt(ageTF.getText()));
-        user.setUserName(nameTF.getText());
-        user.setUserPassword(passwordTF.getText());
-        userService.addUser(user);
+        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        Vehicle vehicle = new Vehicle();
+
+        vehicleService.addVehicle(vehicle);
     }
 
     private void updateVehicle() {
-        UserService userService = (UserService)context.getBean(UserService.class);
-        User user = userService.findById(selectId[0]);
+        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        Vehicle vehicle = vehicleService.findVehicleById(selectId[0]);
+        vehicle.setId();
+        vehicleService.updateVehicle()
+        User user = vehicleService.findById(selectId[0]);
         user.setUserName(nameTF.getText());
         user.setUserPassword(passwordTF.getText());
         user.setUserAge(Integer.valueOf(ageTF.getText()));
-        userService.mergeUser(user,selectId[0]);
+        vehicleService.mergeUser(user,selectId[0]);
     }
 
     private void delete() {
-        UserService userService = (UserService)context.getBean(UserService.class);
-        userService.deleteUser(selectId[0]);
+        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        vehicleService.deleteUser(selectId[0]);
     }
 
     @Override

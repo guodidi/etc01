@@ -4,12 +4,16 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/test01</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/FreeFlowETC</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <mapping class="com.guo.etc.kernel.model.Room"/>
-        <mapping class="com.guo.etc.kernel.model.User"/>
-        <mapping class="com.guo.etc.kernel.model.Book"/>
-        <mapping class="com.guo.etc.kernel.model.Publisher"/>
+        <mapping class="com.guo.etc.kernel.model.Record"/>
+        <mapping class="com.guo.etc.kernel.model.Rsu"/>
+        <mapping class="com.guo.etc.kernel.model.Vehicle"/>
+        <mapping class="com.guo.etc.kernel.model.VehicleType"/>
+        <!--        <mapping class="com.guo.etc.kernel.model.Room"/>
+                <mapping class="com.guo.etc.kernel.model.User"/>
+                <mapping class="com.guo.etc.kernel.model.Book"/>
+                <mapping class="com.guo.etc.kernel.model.Publisher"/>-->
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

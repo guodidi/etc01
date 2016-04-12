@@ -1,11 +1,10 @@
-package com.guo.etc.kernel.baseComponent.impl;
+package com.guo.etc.kernel.dao.impl;
 
-import com.guo.etc.kernel.baseComponent.BaseDao;
+import com.guo.etc.kernel.dao.BaseDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

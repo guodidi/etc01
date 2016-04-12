@@ -1,6 +1,7 @@
-package com.guo.etc.kernel.app.vehicle;
+package com.guo.etc.kernel.app.type;
 
 import com.guo.etc.kernel.app.base.data.DataTable;
+import com.guo.etc.kernel.app.vehicle.VehicleDialog;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
@@ -10,12 +11,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by Administrator on 2016/4/9.
- *
- * 这一行的Button是中间的那一行的Button的，包括的是增删改查
- *
+ * Created by Administrator on 2016/4/12.
  */
-public class VehicleMiddlePanel extends JPanel implements ActionListener {
+public class TypeMiddlePanel extends JPanel implements ActionListener {
+
 
     private ApplicationContext context = null;
 
@@ -23,11 +22,11 @@ public class VehicleMiddlePanel extends JPanel implements ActionListener {
     private static int middleButtonHeight = 22;
     private static int middleButtonWidth = 60;
 
-    private static String addButtonName = "增加车辆";
-    private static String deleteButtonName = "删除车辆";
-    private static String updateButtonName = "修改车辆";
+    private static String addButtonName = "增加类型";
+    private static String deleteButtonName = "删除类型";
+    private static String updateButtonName = "修改类型";
 
-    public VehicleMiddlePanel( ApplicationContext context) {
+    public TypeMiddlePanel(ApplicationContext context) {
         this.context = context;
         this.setLayout(new FlowLayout(FlowLayout.RIGHT));
         this.setBackground(new Color(232, 232, 232));
@@ -73,9 +72,7 @@ public class VehicleMiddlePanel extends JPanel implements ActionListener {
         * 其次，根据我们的点击命令，得到要进行的操作是什么
         * 最后，创建一个Dialog来进行下一步的操作
         * */
-        //获取点击的命令是什么
         String command = e.getActionCommand();
-        //获得JTable中选中的行数
         DataTable dataTable = DataTable.getInstance();
         if(dataTable == null) {
             return;
@@ -97,9 +94,10 @@ public class VehicleMiddlePanel extends JPanel implements ActionListener {
             vehicleDialog.setVisible(true);
             System.out.println("2"+updateButtonName);
         } else {
-            System.out.println("VehicleMiddlePanel Error now!!!");
+            System.out.println("TypeMiddlePanel Error now!!!");
         }
+
+
 
     }
 }
-

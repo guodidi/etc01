@@ -1,6 +1,5 @@
 package com.guo.etc.kernel.app;
 
-import com.guo.etc.kernel.app.base.button.TopButtonPanel;
 import com.guo.etc.kernel.util.Constant;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

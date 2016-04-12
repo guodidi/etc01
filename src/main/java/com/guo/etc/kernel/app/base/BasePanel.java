@@ -14,15 +14,15 @@ import java.awt.*;
 public abstract class BasePanel extends JPanel {
 
     //车辆管理面板
-    public final static String vehiclePanel = "vehiclePanel";
+    public final static String vehiclePanel = "vehiclePanelName";
     //类型管理面板
-    public final static String typePanel = "typePanel";
+    public final static String typePanel = "typePanelName";
     //道路管理面板
-    public final static String roadPanel = "roadPanel";
+    public final static String rsuPanel = "rsuPanelName";
     //总的收费管理面板
-    public final static String feePanel = "feePanel";
+    public final static String feePanel = "feePanelName";
     //模拟收费面板
-    public final static String simulatePanel = "simulatePanel";
+    public final static String simulatePanel = "simulatePanelName";
 
     public abstract String[] tableHeader();
 

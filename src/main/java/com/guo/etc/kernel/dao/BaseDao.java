@@ -1,4 +1,4 @@
-package com.guo.etc.kernel.baseComponent;
+package com.guo.etc.kernel.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.guo.etc.kernel.dao.impl;
 
-import com.guo.etc.kernel.baseComponent.impl.BaseDaoImpl;
 import com.guo.etc.kernel.dao.VehicleDao;
 import com.guo.etc.kernel.model.Vehicle;
 import org.springframework.stereotype.Repository;

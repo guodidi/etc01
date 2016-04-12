@@ -1,6 +1,7 @@
 package com.guo.etc.kernel.app.vehicle;
 
 import com.guo.etc.kernel.app.base.BasePanel;
+import com.guo.etc.kernel.model.Vehicle;
 import com.guo.etc.kernel.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 
@@ -41,7 +42,7 @@ public class VehiclePanel extends BasePanel {
         if(vehicleList != null) {
             String[][] vehicles = new String[vehicleList.size()][4];
             for(Vehicle vehicle: vehicleList) {
-                String[] temp = new String[] {String.valueOf(vehicle.getId()),vehicle.getVehicelId(),vehicle.getVahicleOwner(),vehicle.getVehicleType()};
+                String[] temp = new String[] {String.valueOf(vehicle.getId()),vehicle.getVehicleId(),vehicle.getVehicleOwner(),vehicle.getVehicleType()};
                 vehicles[i++] = temp;
             }
             return vehicles;

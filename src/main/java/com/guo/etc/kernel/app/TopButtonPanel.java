@@ -1,6 +1,9 @@
-package com.guo.etc.kernel.app.base.button;
+package com.guo.etc.kernel.app;
 
 import com.guo.etc.kernel.app.base.ReloadPanel;
+import com.guo.etc.kernel.app.record.RecordPanel;
+import com.guo.etc.kernel.app.rsu.RsuPanel;
+import com.guo.etc.kernel.app.type.TypePanel;
 import com.guo.etc.kernel.app.vehicle.VehiclePanel;
 import org.springframework.context.ApplicationContext;
 
@@ -89,15 +92,16 @@ public class TopButtonPanel extends JPanel implements ActionListener  {
             ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
         }else if(command.equals(typeButtonName)) {
             System.out.println("类型管理");
-           // ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
+            ReloadPanel.reloadPanel(TypePanel.getInstance(context));
         }else if (command.equals(feeButtonName)) {
             System.out.println("费用管理");
-           // ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
+            ReloadPanel.reloadPanel(RecordPanel.getInstance(context));
         }else if (command.equals(roadButtonName)) {
-           // ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
             System.out.println("道路管理");
+            ReloadPanel.reloadPanel(RsuPanel.getInstance(context));
+
         }else if (command.equals(simulateFeeName)) {
-            //ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
+            //ReloadPanel.reloadPanel(SimulatePanel.getInstance(context));
             System.out.println("模拟收费");
         }else {
             System.out.println("啥JB玩意儿啊");

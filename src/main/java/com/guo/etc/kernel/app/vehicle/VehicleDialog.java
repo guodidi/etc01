@@ -177,7 +177,7 @@ public class VehicleDialog extends JDialog implements ActionListener {
     }
 
     private void updateVehicle() {
-        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+/*        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
         Vehicle vehicle = vehicleService.findVehicleById(selectId[0]);
         vehicle.setId();
         vehicleService.updateVehicle()
@@ -185,12 +185,12 @@ public class VehicleDialog extends JDialog implements ActionListener {
         user.setUserName(nameTF.getText());
         user.setUserPassword(passwordTF.getText());
         user.setUserAge(Integer.valueOf(ageTF.getText()));
-        vehicleService.mergeUser(user,selectId[0]);
+        vehicleService.mergeUser(user,selectId[0]);*/
     }
 
     private void delete() {
-        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
-        vehicleService.deleteUser(selectId[0]);
+/*        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        vehicleService.deleteUser(selectId[0]);*/
     }
 
     @Override

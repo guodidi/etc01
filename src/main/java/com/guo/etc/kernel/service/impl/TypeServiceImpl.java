@@ -1,8 +1,8 @@
 package com.guo.etc.kernel.service.impl;
 
-import com.guo.etc.kernel.dao.VehicleTypeDao;
+import com.guo.etc.kernel.dao.TypeDao;
 import com.guo.etc.kernel.model.VehicleType;
-import com.guo.etc.kernel.service.VehicleTypeService;
+import com.guo.etc.kernel.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,39 +13,39 @@ import java.util.List;
  * Created by Administrator on 2016/4/11.
  */
 @Transactional
-@Service(value = "vehicleTypeService")
-public class VehicleTypeServiceImpl implements VehicleTypeService {
+@Service(value = "typeService")
+public class TypeServiceImpl implements TypeService {
 
     @Autowired
-    VehicleTypeDao vehicleTypeDao;
+    TypeDao typeDao;
 
 
     @Override
     public boolean addVehicleType(VehicleType vehicleType) {
-        vehicleTypeDao.addVehicleType(vehicleType);
+        typeDao.addVehicleType(vehicleType);
         return false;
     }
 
     @Override
     public boolean deleteVehicleType(Long id) {
-        vehicleTypeDao.deleteVehicleType(id);
+        typeDao.deleteVehicleType(id);
         return false;
     }
 
     @Override
     public boolean updateVehicleType(VehicleType vehicleType) {
-        vehicleTypeDao.updateVehicleType(vehicleType);
+        typeDao.updateVehicleType(vehicleType);
         return false;
     }
 
     @Override
     public VehicleType findVehicleTypeById(Long id) {
 
-        return vehicleTypeDao.findVehicleTypeById(id);
+        return typeDao.findVehicleTypeById(id);
     }
 
     @Override
     public List<VehicleType> findAllVehicleType() {
-        return vehicleTypeDao.findAllVehicleType();
+        return typeDao.findAllVehicleType();
     }
 }

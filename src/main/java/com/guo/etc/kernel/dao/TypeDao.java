@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/11.
  */
-public interface VehicleTypeDao {
+public interface TypeDao {
 
     //增删改查
     public boolean addVehicleType(VehicleType vehicleType);

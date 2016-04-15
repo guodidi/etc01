@@ -1,0 +1,107 @@
+package com.guo.etc.kernel.app.record;
+
+import org.springframework.context.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
+/**
+ * Created by Administrator on 2016/4/13.
+ */
+public class RecordDialog extends JDialog {
+
+    private ApplicationContext context = null;
+    private Long[] selectId = null;
+    private static RecordDialog recordDialog = null;
+
+    private static final String addName = "确认";
+    private static final String deleteName = "删除";
+    private static final String updateName = "更新";
+    private static final String cancelName = "取消";
+
+    private JButton confirmButton = new JButton();
+    private JButton cancelButton = new JButton();
+    JPanel describePanel = new JPanel();
+    JPanel inputPanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
+
+    private void init() {
+        super.dialogInit();
+        this.setLayout(new BorderLayout());
+        //顶层介绍JPanel
+        this.add(setDescribePanel(),BorderLayout.NORTH);
+        //中间层输入JPanel
+        this.add(setInputPanel(),BorderLayout.CENTER);
+        //底层按钮JPanel
+        this.add(setButtonPanel(),BorderLayout.SOUTH);
+        setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setSize(new Dimension(600,400));
+        setLocation(600 / 2 - getWidth() / 2, 400 / 2 - getHeight() / 2);
+    }
+
+    private JPanel setButtonPanel() {
+        return null;
+    }
+
+    private JPanel setInputPanel() {
+        return null;
+    }
+
+    private JPanel setDescribePanel() {
+        return null;
+    }
+
+    private RecordDialog (ApplicationContext context,Long[] selectId) {
+        this.context = context;
+        this.selectId = selectId;
+        init();
+    }
+
+    private RecordDialog(ApplicationContext context) {
+        this.context = context;
+        init();
+    }
+
+    public static RecordDialog getAddInstance(ApplicationContext context) {
+        if (recordDialog != null) {
+            recordDialog.dispose();
+        }
+        recordDialog = new RecordDialog(context);
+
+        return recordDialog;
+    }
+
+    public static RecordDialog getUpdateInstance(ApplicationContext context,Long selectId[], ArrayList<Object> selectValues) {
+        if (recordDialog != null) {
+            recordDialog.dispose();
+        }
+        if(selectId == null){
+            System.out.println("你大爷，这个什么都没有，我在刷新中");
+            return null;
+        }
+        recordDialog = new RecordDialog(context,selectId);
+
+        return recordDialog;
+    }
+
+    public static RecordDialog getDeleteInstance(ApplicationContext context,Long selectId[], ArrayList<Object> selectValues){
+        if (recordDialog != null) {
+            recordDialog.dispose();
+        }
+        if(selectId == null){
+            System.out.println("你大爷，这个什么都没有，我在删除中");
+        } else {
+
+        }
+
+        return recordDialog;
+
+    }
+
+
+
+
+
+}

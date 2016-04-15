@@ -1,11 +1,13 @@
 package com.guo.etc.kernel.app.rsu;
 
+import com.guo.etc.kernel.app.base.data.DataTable;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/4/12.
@@ -63,6 +65,36 @@ public class RsuMiddlePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*
+        * 当触动一个按钮时，有以下操作步骤
+        * 首先要获取当前表格的实例，并且得到此时点击的行的id值
+        * 其次，根据我们的点击命令，得到要进行的操作是什么
+        * 最后，创建一个Dialog来进行下一步的操作
+        * */
+        String command = e.getActionCommand();
+        DataTable dataTable = DataTable.getInstance();
+        if(dataTable == null) {
+            return;
+        }
+        ArrayList<Object> selectValues = dataTable.getSelectValues();
+        Long[] selectIds = dataTable.getSelectIds();
+        if (command.equals(addButtonName)) {
+            //增加信息弹出窗口
+            RsuDialog rsuDialog = RsuDialog.getAddInstance(context);
+            rsuDialog.setVisible(true);
+        }else if(command.equals(deleteButtonName)) {
+            //删除信息弹出窗口
+            RsuDialog rsuDialog = RsuDialog.getDeleteInstance(context,selectIds,selectValues);
+            rsuDialog.setVisible(true);
+            System.out.println("1"+deleteButtonName);
+        }else if (command.equals(updateButtonName)) {
+            //修改信息弹出窗口
+            RsuDialog rsuDialog = RsuDialog.getUpdateInstance(context,selectIds,selectValues);
+            rsuDialog.setVisible(true);
+            System.out.println("2"+updateButtonName);
+        } else {
+            System.out.println("RsuMiddlePanel Error now!!!");
+        }
 
     }
 }

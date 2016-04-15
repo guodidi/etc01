@@ -1,6 +1,6 @@
 package com.guo.etc.kernel.dao.impl;
 
-import com.guo.etc.kernel.dao.VehicleTypeDao;
+import com.guo.etc.kernel.dao.TypeDao;
 import com.guo.etc.kernel.model.VehicleType;
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/11.
  */
-@Repository(value = "vehicleTypeDao")
-public class VehicleTypeDaoImpl extends BaseDaoImpl implements VehicleTypeDao {
+@Repository(value = "typeDao")
+public class TypeDaoImpl extends BaseDaoImpl implements TypeDao {
 
 
     @Override

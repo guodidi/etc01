@@ -1,10 +1,8 @@
 package com.guo.etc.kernel.app.type;
 
 import com.guo.etc.kernel.app.base.BasePanel;
-import com.guo.etc.kernel.model.Vehicle;
 import com.guo.etc.kernel.model.VehicleType;
-import com.guo.etc.kernel.service.VehicleService;
-import com.guo.etc.kernel.service.VehicleTypeService;
+import com.guo.etc.kernel.service.TypeService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
@@ -41,7 +39,7 @@ public class TypePanel extends BasePanel {
 
     @Override
     public String[][] tableData() {
-        VehicleTypeService vehicleTypeService =context.getBean(VehicleTypeService.class);
+        TypeService vehicleTypeService =context.getBean(TypeService.class);
         List<VehicleType> typeList = vehicleTypeService.findAllVehicleType();
         int i= 0;
         if (typeList != null) {

@@ -3,7 +3,7 @@ package com.guo.etc.kernel.model;
 import javax.persistence.*;
 
 /**
- * Created by Administrator on 2016/4/11.
+ * Created by Administrator on 2016/4/15.
  */
 @Entity
 @Table(name = "vehicle_type", schema = "", catalog = "freeflowetc")

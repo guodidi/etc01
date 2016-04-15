@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Created by Administrator on 2016/4/11.
+ * Created by Administrator on 2016/4/15.
  */
 @Entity
 public class Vehicle {
@@ -14,6 +14,7 @@ public class Vehicle {
     private String vehicleId;
     private String vehicleOwner;
     private String vehicleType;
+    private String obuMac;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -55,6 +56,16 @@ public class Vehicle {
         this.vehicleType = vehicleType;
     }
 
+    @Basic
+    @Column(name = "obu_mac", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getObuMac() {
+        return obuMac;
+    }
+
+    public void setObuMac(String obuMac) {
+        this.obuMac = obuMac;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +78,7 @@ public class Vehicle {
         if (vehicleOwner != null ? !vehicleOwner.equals(vehicle.vehicleOwner) : vehicle.vehicleOwner != null)
             return false;
         if (vehicleType != null ? !vehicleType.equals(vehicle.vehicleType) : vehicle.vehicleType != null) return false;
+        if (obuMac != null ? !obuMac.equals(vehicle.obuMac) : vehicle.obuMac != null) return false;
 
         return true;
     }
@@ -77,6 +89,7 @@ public class Vehicle {
         result = 31 * result + (vehicleId != null ? vehicleId.hashCode() : 0);
         result = 31 * result + (vehicleOwner != null ? vehicleOwner.hashCode() : 0);
         result = 31 * result + (vehicleType != null ? vehicleType.hashCode() : 0);
+        result = 31 * result + (obuMac != null ? obuMac.hashCode() : 0);
         return result;
     }
 }

@@ -2,6 +2,8 @@ package com.guo.etc.kernel.app.vehicle;
 
 import com.guo.etc.kernel.app.base.ReloadPanel;
 import com.guo.etc.kernel.model.Vehicle;
+import com.guo.etc.kernel.model.VehicleType;
+import com.guo.etc.kernel.service.TypeService;
 import com.guo.etc.kernel.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 
@@ -9,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by Administrator on 2016/4/9.
@@ -20,53 +22,27 @@ public class VehicleDialog extends JDialog implements ActionListener {
     private Long[] selectId ;
 
     private static VehicleDialog vehicleDialog = null;
-    private static final String addName = "确认";
+    private static final String addName = "添加";
     private static final String deleteName = "删除";
-    private static final String updateName = "更新";
+    private static final String updateName = "修改";
     private static final String cancelName = "取消";
 
-    private JButton confirmButton = new JButton();
-    private JButton cancelButton = new JButton();
-    JPanel describePanel = new JPanel();
-    JPanel inputPanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
+    private JButton confirmButton = new JButton("确定");
+    private JButton cancelButton = new JButton(cancelName);
+    private JLabel describeLabel = new JLabel();
 
-    /*
-    * 界面设计
-    * */
-    private void init() {
-        super.dialogInit();
-        this.setLayout(new BorderLayout());
-        //顶层介绍JPanel
-        this.add(setDescribePanel(),BorderLayout.NORTH);
-        //中间层输入JPanel
-        this.add(setInputPanel(),BorderLayout.CENTER);
-        //底层按钮JPanel
-        this.add(setButtonPanel(),BorderLayout.SOUTH);
-        setModal(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(new Dimension(600,400));
-        setLocation(600 / 2 - getWidth() / 2, 400 / 2 - getHeight() / 2);
-    }
+    private JPanel describePanel = new JPanel();
+    private JPanel inputPanel = new JPanel();
+    private JPanel buttonPanel = new JPanel();
 
-    private JPanel setButtonPanel() {
-        return null;
-    }
-
-    private JPanel setInputPanel() {
-        return null;
-    }
-
-    private JPanel setDescribePanel() {
-        return null;
-    }
-
-
-
-
-
-
-
+    private JLabel vehicleIdLabel = new JLabel("车牌号码");
+    private JTextField vehicleIdTF = new JTextField(30);
+    private JLabel vehicleTypeLabel = new JLabel("车牌类型");
+    private JComboBox vehicleTypeTF = null;
+    private JLabel vehicleOwnerLabel = new JLabel("车主");
+    private JTextField vehicleOwnerTF = new JTextField(30);
+    private JLabel obuMacLabel = new JLabel("OBU的MAC");
+    private JTextField obuMacTF = new JTextField(30);
 
     private VehicleDialog (ApplicationContext context,Long[] selectId) {
         this.context = context;
@@ -79,12 +55,102 @@ public class VehicleDialog extends JDialog implements ActionListener {
         init();
     }
 
+
+    private void init() {
+        super.dialogInit();
+        this.setLayout(new BorderLayout());
+        this.add(describePanel,BorderLayout.NORTH);
+        setDescribePanel();
+        this.add(inputPanel,BorderLayout.CENTER);
+        setInputPanel();
+        this.add(buttonPanel,BorderLayout.SOUTH);
+        setButtonPanel();
+        setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setSize(new Dimension(600,400));
+        setLocation(600 / 2 - getWidth() / 2, 400 / 2 - getHeight() / 2);
+    }
+
+    private void setDescribePanel() {
+        describeLabel.setText("这是车辆管理Dialog");
+        GridBagLayout layout =new GridBagLayout();
+        buttonPanel.setLayout(layout);
+        GridBagConstraints constraints = new GridBagConstraints();
+        layout.setConstraints(describeLabel,constraints);
+        describePanel.add(describeLabel);
+    }
+
+    private void setInputPanel() {
+        TypeService typeService = (TypeService)context.getBean(TypeService.class);
+        java.util.List<VehicleType> VehicleTypes = typeService.findAllVehicleType();
+        ArrayList<String> typeList = new ArrayList<String>();
+        for(VehicleType type : VehicleTypes) {
+            typeList.add(type.getType());
+        }
+        vehicleTypeTF = new JComboBox(typeList.toArray());
+        GridBagLayout layout = new GridBagLayout();
+        inputPanel.setLayout(layout);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10,20,10,20);
+        constraints.gridheight = 1;
+        constraints.gridwidth = 2;
+        layout.setConstraints(vehicleIdLabel, constraints);
+        inputPanel.add(vehicleIdLabel);
+        constraints.gridwidth = 0;
+        layout.setConstraints(vehicleIdTF, constraints);
+        inputPanel.add(vehicleIdTF);
+
+        constraints.gridheight = 1;
+        constraints.gridwidth = 2;
+        layout.setConstraints(vehicleTypeLabel, constraints);
+        inputPanel.add(vehicleTypeLabel);
+        constraints.gridwidth = 0;
+        vehicleTypeTF.setPreferredSize(new Dimension(330,28));//设置JBox的大小
+        layout.setConstraints(vehicleTypeTF, constraints);
+        inputPanel.add(vehicleTypeTF);
+
+        constraints.gridheight = 1;
+        constraints.gridwidth = 2;
+        layout.setConstraints(vehicleOwnerLabel, constraints);
+        inputPanel.add(vehicleOwnerLabel);
+        constraints.gridwidth = 0;
+        layout.setConstraints(vehicleOwnerTF, constraints);
+        inputPanel.add(vehicleOwnerTF);
+
+        constraints.gridheight = 1;
+        constraints.gridwidth = 2;
+        layout.setConstraints(obuMacLabel, constraints);
+        inputPanel.add(obuMacLabel);
+        constraints.gridwidth = 0;
+        layout.setConstraints(obuMacTF, constraints);
+        inputPanel.add(obuMacTF);
+    }
+
+    private void setButtonPanel() {
+        GridBagLayout layout =new GridBagLayout();
+        buttonPanel.setLayout(layout);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridwidth = 2;
+        constraints.gridheight = 1;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = new Insets(20,20,20,20);
+        confirmButton.addActionListener(this);
+        layout.setConstraints(confirmButton,constraints);
+        buttonPanel.add(confirmButton);
+        constraints.anchor = GridBagConstraints.EAST;
+        cancelButton.addActionListener(this);
+        layout.setConstraints(cancelButton,constraints);
+        buttonPanel.add(cancelButton);
+    }
+
+
     public static VehicleDialog getAddInstance(ApplicationContext context) {
         if (vehicleDialog != null) {
             vehicleDialog.dispose();
         }
         vehicleDialog = new VehicleDialog(context);
-
+        vehicleDialog.confirmButton.setText(addName);
         return vehicleDialog;
     }
 
@@ -92,12 +158,12 @@ public class VehicleDialog extends JDialog implements ActionListener {
         if (vehicleDialog != null) {
             vehicleDialog.dispose();
         }
-        if(selectId == null){
-            System.out.println("你大爷，这个什么都没有，我在刷新中");
-            return null;
-        }
         vehicleDialog = new VehicleDialog(context,selectId);
-
+        vehicleDialog.confirmButton.setText(updateName);
+        vehicleDialog.vehicleIdTF.setText(String.valueOf(selectValues.get(1)));
+        vehicleDialog.vehicleOwnerTF.setText(String.valueOf(selectValues.get(2)));
+        vehicleDialog.vehicleTypeTF.setSelectedItem(selectValues.get(3));
+        vehicleDialog.obuMacTF.setText(String.valueOf(selectValues.get(4)));
         return vehicleDialog;
     }
 
@@ -105,60 +171,64 @@ public class VehicleDialog extends JDialog implements ActionListener {
         if (vehicleDialog != null) {
             vehicleDialog.dispose();
         }
-        if(selectId == null){
-            System.out.println("你大爷，这个什么都没有，我在删除中");
-        } else {
-
-            vehicleDialog.confirmButton.setText("删除");
-        }
-
+        vehicleDialog = new VehicleDialog(context,selectId);
+        vehicleDialog.confirmButton.setText(deleteName);
+        vehicleDialog.vehicleIdTF.setText(String.valueOf(selectValues.get(1)));
+        vehicleDialog.vehicleOwnerTF.setText(String.valueOf(selectValues.get(2)));
+        vehicleDialog.vehicleTypeTF.setSelectedItem(selectValues.get(3));
+        vehicleDialog.obuMacTF.setText(String.valueOf(selectValues.get(4)));
+        vehicleDialog.vehicleIdTF.setEnabled(false);
+        vehicleDialog.vehicleOwnerTF.setEnabled(false);
+        vehicleDialog.vehicleTypeTF.setEnabled(false);
+        vehicleDialog.obuMacTF.setEnabled(false);
         return vehicleDialog;
-
     }
-
-
-
-
-
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (command.equals("添加")) {
+        if (command.equals(addName)) {
             addUser();
             this.dispose();
-            ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
-            System.out.println("这是添加的符号呢！");
-        } else if (command.equals("修改")) {
+        } else if (command.equals(updateName)) {
             updateVehicle();
             this.dispose();
-            ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
-            System.out.println("这是修改的符号，我靠真的可以呢");
-        } else if (command.equals("删除")) {
+        } else if (command.equals(deleteName)) {
             delete();
             this.dispose();
-            ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
-            System.out.println("这里是删除，对表和数据库进行删除操作");
+        } else if(command.equals(cancelName)) {
+            this.dispose();
+        } else {
+            System.out.println("Error has happen in VehicleDialog");
+            this.dispose();
         }
     }
 
     private void addUser() {
         VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
         Vehicle vehicle = new Vehicle();
-
+        vehicle.setVehicleId(vehicleIdTF.getText());
+        vehicle.setVehicleType(String.valueOf(vehicleTypeTF.getSelectedItem()));
+        vehicle.setVehicleOwner(vehicleOwnerTF.getText());
+        vehicle.setObuMac(obuMacTF.getText());
         vehicleService.addVehicle(vehicle);
     }
 
     private void updateVehicle() {
-
+        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        Vehicle vehicle = vehicleService.findVehicleById(selectId[0]);
+        vehicle.setVehicleId(vehicleIdTF.getText());
+        vehicle.setVehicleType(String.valueOf(vehicleTypeTF.getSelectedItem()));
+        vehicle.setVehicleOwner(vehicleOwnerTF.getText());
+        vehicle.setObuMac(obuMacTF.getText());
+        vehicleService.updateVehicle(vehicle);
     }
 
     private void delete() {
-
+        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        vehicleService.deleteVehicle(selectId[0]);
     }
-
-
 
 }

@@ -6,13 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Created by Administrator on 2016/4/11.
+ * Created by Administrator on 2016/4/15.
  */
 @Entity
 public class Rsu {
     private long id;
     private String rsuId;
     private String rsuName;
+    private String roadId;
     private String rsuSite;
 
     @Id
@@ -46,6 +47,16 @@ public class Rsu {
     }
 
     @Basic
+    @Column(name = "road_id", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getRoadId() {
+        return roadId;
+    }
+
+    public void setRoadId(String roadId) {
+        this.roadId = roadId;
+    }
+
+    @Basic
     @Column(name = "rsu_site", nullable = true, insertable = true, updatable = true, length = 255)
     public String getRsuSite() {
         return rsuSite;
@@ -65,6 +76,7 @@ public class Rsu {
         if (id != rsu.id) return false;
         if (rsuId != null ? !rsuId.equals(rsu.rsuId) : rsu.rsuId != null) return false;
         if (rsuName != null ? !rsuName.equals(rsu.rsuName) : rsu.rsuName != null) return false;
+        if (roadId != null ? !roadId.equals(rsu.roadId) : rsu.roadId != null) return false;
         if (rsuSite != null ? !rsuSite.equals(rsu.rsuSite) : rsu.rsuSite != null) return false;
 
         return true;
@@ -75,6 +87,7 @@ public class Rsu {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (rsuId != null ? rsuId.hashCode() : 0);
         result = 31 * result + (rsuName != null ? rsuName.hashCode() : 0);
+        result = 31 * result + (roadId != null ? roadId.hashCode() : 0);
         result = 31 * result + (rsuSite != null ? rsuSite.hashCode() : 0);
         return result;
     }

@@ -2,6 +2,7 @@ package com.guo.etc.kernel.dao;
 
 
 import com.guo.etc.kernel.model.VehicleType;
+
 import java.util.List;
 
 /**

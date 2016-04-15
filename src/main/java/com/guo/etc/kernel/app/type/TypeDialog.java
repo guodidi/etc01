@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/4/13.
+ *
+ * finish in 2016/4/15.
+ *
  */
 public class TypeDialog extends JDialog implements ActionListener {
     private ApplicationContext context = null;
@@ -19,10 +22,11 @@ public class TypeDialog extends JDialog implements ActionListener {
     private static TypeDialog typeDialog = null;
 
     private static TypeDialog vehicleDialog = null;
-    private static final String addName = "确认";
+    private static final String addName = "添加";
     private static final String deleteName = "删除";
-    private static final String updateName = "更新";
+    private static final String updateName = "修改";
     private static final String cancelName = "取消";
+    private static final String confirmName = "确定";
 
     JPanel describePanel = new JPanel();
     JPanel inputPanel = new JPanel();
@@ -30,14 +34,16 @@ public class TypeDialog extends JDialog implements ActionListener {
 
     private JLabel describeLabel = new JLabel();
 
+    private JButton confirmButton = new JButton(confirmName);
+    private JButton cancelButton = new JButton(cancelName);
+
+
     private JLabel typeLabel = new JLabel("类型");
     private JLabel feeLabel = new JLabel("费用");
 
     private JTextField typeTF  = new JTextField(30);
     private JTextField feeTF = new JTextField(30);
 
-    private JButton confirmButton = new JButton("确定");
-    private JButton cancelButton = new JButton("取消");
 
 
     //初始化GUI界面
@@ -124,7 +130,7 @@ public class TypeDialog extends JDialog implements ActionListener {
             typeDialog.dispose();
         }
         typeDialog = new TypeDialog(context);
-        typeDialog.confirmButton.setText("添加");
+        typeDialog.confirmButton.setText(addName);
         return typeDialog;
     }
 
@@ -133,7 +139,7 @@ public class TypeDialog extends JDialog implements ActionListener {
             typeDialog.dispose();
         }
         typeDialog = new TypeDialog(context,selectId);
-        typeDialog.confirmButton.setText("修改");
+        typeDialog.confirmButton.setText(updateName);
         typeDialog.typeTF.setText(String.valueOf(selectValues.get(1)));
         typeDialog.feeTF.setText(String.valueOf(selectValues.get(2)));
         return typeDialog;
@@ -144,7 +150,7 @@ public class TypeDialog extends JDialog implements ActionListener {
             typeDialog.dispose();
         }
         typeDialog = new TypeDialog(context,selectId);
-        typeDialog.confirmButton.setText("删除");
+        typeDialog.confirmButton.setText(deleteName);
         typeDialog.typeTF.setText(String.valueOf(selectValues.get(1)));
         typeDialog.feeTF.setText(String.valueOf(selectValues.get(2)));
         typeDialog.typeTF.setEnabled(false);
@@ -156,17 +162,13 @@ public class TypeDialog extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if (command == "添加") {
-            System.out.println("这是添加操作");
+        if (command == addName) {
             addType();
-        } else if (command == "修改") {
-            System.out.println("这是修改操作");
+        } else if (command == updateName) {
             updateType();
-        } else if (command == "删除") {
-            System.out.println("这是删除操作");
+        } else if (command == deleteName) {
             deleteType();
-        } else if (command == "取消") {
-            System.out.println("这是取消操作");
+        } else if (command == cancelName) {
             closeDialog();
         } else {
             System.out.println("关闭窗口");
@@ -174,14 +176,12 @@ public class TypeDialog extends JDialog implements ActionListener {
     }
 
     private void deleteType() {
-        System.out.println("这是删除操作");
         TypeService typeService = (TypeService)context.getBean(TypeService.class);
         typeService.deleteVehicleType(selectId[0]);
         closeDialog();
     }
 
     private void updateType() {
-        System.out.println("这是修改操作");
         TypeService typeService = (TypeService)context.getBean(TypeService.class);
         VehicleType type = typeService.findVehicleTypeById(selectId[0]);
         type.setType(typeTF.getText());
@@ -192,7 +192,6 @@ public class TypeDialog extends JDialog implements ActionListener {
     }
 
     private void addType() {
-        System.out.println("这是添加操作");
         TypeService typeService = (TypeService)context.getBean(TypeService.class);
         VehicleType type = new VehicleType();
         type.setType(typeTF.getText());

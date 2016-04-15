@@ -30,12 +30,14 @@ public class RecordDaoImpl extends BaseDaoImpl implements RecordDao {
 
     @Override
     public boolean updateRecord(Record record) {
-        Record record1 = super.findById(Record.class,record.getId());
+
+/* 若采用以下的方法，则会造成Error中：a different object with the same identifier value was already associated with the session
+  Record record1 = super.findById(Record.class,record.getId());
         if (record1 == null) {
             System.out.println("所查询的Record在数据库中不存在： "+record.getId());
             return false;
-        }
-        super.delete(record1);
+        }*/
+        super.delete(record);
         return false;
     }
 

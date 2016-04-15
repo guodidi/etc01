@@ -23,9 +23,7 @@ public class TypePanel extends BasePanel {
     }
 
     public static TypePanel getInstance(ApplicationContext context) {
-      //  if(typePanel == null) {
             typePanel = new TypePanel(context);
-        //}
         return typePanel;
     }
 
@@ -52,7 +50,6 @@ public class TypePanel extends BasePanel {
             }
             return types;
         }
-        //System.out.println("Table---------> Null");
          return null;
     }
 

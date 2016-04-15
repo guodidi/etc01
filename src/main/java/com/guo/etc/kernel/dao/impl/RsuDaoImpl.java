@@ -31,13 +31,8 @@ public class RsuDaoImpl extends BaseDaoImpl implements RsuDao {
 
     @Override
     public boolean updateRsu(Rsu rsu) {
-        Rsu rsu1 = super.findById(Rsu.class, rsu.getId());
-        if (rsu1 == null) {
-            System.out.println("你所查询的Rsu在数据库中不存在： "+rsu.getId());
-            return false;
-        }
         super.merge(rsu);
-        return false;
+        return true;
     }
 
     @Override

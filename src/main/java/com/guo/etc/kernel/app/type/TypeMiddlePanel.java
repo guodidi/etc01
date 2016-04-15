@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/4/12.
+ *
+ * finish in 2016/4/15.
+ *
  */
 public class TypeMiddlePanel extends JPanel implements ActionListener {
 
@@ -84,21 +87,21 @@ public class TypeMiddlePanel extends JPanel implements ActionListener {
             //增加信息弹出窗口
             TypeDialog typeDialog = TypeDialog.getAddInstance(context);
             typeDialog.setVisible(true);
-        }else if(command.equals(deleteButtonName)&& selectIds != null) {
+        }else if(command.equals(deleteButtonName) && selectIds != null) {
             //删除信息弹出窗口
             TypeDialog typeDialog = TypeDialog.getDeleteInstance(context, selectIds, selectValues);
             typeDialog.setVisible(true);
             System.out.println("1" + deleteButtonName);
-        }else if (command.equals(updateButtonName)&& selectIds != null) {
+        }else if (command.equals(updateButtonName) && selectIds != null) {
             //修改信息弹出窗口
             TypeDialog typeDialog = TypeDialog.getUpdateInstance(context, selectIds, selectValues);
             typeDialog.setVisible(true);
             System.out.println("2"+updateButtonName);
         } else {
+            System.out.println("TypeMiddlePanel 中出现错误 ！！！");
             JOptionPane.showMessageDialog(null, "请选择要操作的一行?", "提示",
                     JOptionPane.YES_OPTION);
             return;
-
         }
         //每次进行完操作之后都要进行相对应的刷新表格下。
         ReloadPanel.reloadPanel(TypePanel.getInstance(context));

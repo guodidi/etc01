@@ -33,14 +33,8 @@ public class TypeDaoImpl extends BaseDaoImpl implements TypeDao {
 
     @Override
     public boolean updateVehicleType(VehicleType vehicleType) {
-        VehicleType vehicleType1 = super.findById(VehicleType.class,vehicleType.getId());
-        if (vehicleType1 == null) {
-            System.out.println("在VehicleType中尚未查找到该id对应的实体--->"+"id: "+vehicleType.getId());
-            return false;
-        } else {
-            super.merge(vehicleType);
-        }
-        return true;
+        super.merge(vehicleType);
+        return false;
     }
 
     @Override

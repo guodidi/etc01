@@ -31,7 +31,7 @@ public class VehiclePanel extends BasePanel {
 
     @Override
     public String[] tableHeader() {
-        return new String[] {"序号","车牌号码","车主","收费车型"};
+        return new String[] {"序号","车牌号码","车主","收费车型","OBU_MAC"};
     }
 
     @Override
@@ -40,9 +40,9 @@ public class VehiclePanel extends BasePanel {
         List<Vehicle> vehicleList = vehicleService.findAllVehicle();
         int i=0;
         if(vehicleList != null) {
-            String[][] vehicles = new String[vehicleList.size()][4];
+            String[][] vehicles = new String[vehicleList.size()][tableHeader().length];
             for(Vehicle vehicle: vehicleList) {
-                String[] temp = new String[] {String.valueOf(vehicle.getId()),vehicle.getVehicleId(),vehicle.getVehicleOwner(),vehicle.getVehicleType()};
+                String[] temp = new String[] {String.valueOf(vehicle.getId()),vehicle.getVehicleId(),vehicle.getVehicleOwner(),vehicle.getVehicleType(),vehicle.getObuMac()};
                 vehicles[i++] = temp;
             }
             return vehicles;

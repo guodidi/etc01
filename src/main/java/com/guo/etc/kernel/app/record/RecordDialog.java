@@ -4,12 +4,14 @@ import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/4/13.
  */
-public class RecordDialog extends JDialog {
+public class RecordDialog extends JDialog implements ActionListener {
 
     private ApplicationContext context = null;
     private Long[] selectId = null;
@@ -20,39 +22,63 @@ public class RecordDialog extends JDialog {
     private static final String updateName = "更新";
     private static final String cancelName = "取消";
 
-    private JButton confirmButton = new JButton();
-    private JButton cancelButton = new JButton();
+    private JButton confirmButton = new JButton("确定");
+    private JButton cancelButton = new JButton("取消");
+    private JLabel describeLabel = new JLabel();
+
     JPanel describePanel = new JPanel();
     JPanel inputPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
 
+
+
+
+
     private void init() {
         super.dialogInit();
         this.setLayout(new BorderLayout());
-        //顶层介绍JPanel
-        this.add(setDescribePanel(),BorderLayout.NORTH);
-        //中间层输入JPanel
-        this.add(setInputPanel(),BorderLayout.CENTER);
-        //底层按钮JPanel
-        this.add(setButtonPanel(),BorderLayout.SOUTH);
+        this.add(describePanel,BorderLayout.NORTH);
+        setDescribePanel();
+        this.add(inputPanel,BorderLayout.CENTER);
+        setInputPanel();
+        this.add(buttonPanel,BorderLayout.SOUTH);
+        setButtonPanel();
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(new Dimension(600,400));
         setLocation(600 / 2 - getWidth() / 2, 400 / 2 - getHeight() / 2);
     }
 
-    private JPanel setButtonPanel() {
-        return null;
+    private void setDescribePanel() {
+        describeLabel.setText("这是记录管理Dialog");
+        GridBagLayout layout =new GridBagLayout();
+        buttonPanel.setLayout(layout);
+        GridBagConstraints constraints = new GridBagConstraints();
+        layout.setConstraints(describeLabel,constraints);
+        describePanel.add(describeLabel);
     }
 
-    private JPanel setInputPanel() {
-        return null;
+    private void setInputPanel() {
+
     }
 
-    private JPanel setDescribePanel() {
-        return null;
+    private void setButtonPanel() {
+        GridBagLayout layout =new GridBagLayout();
+        buttonPanel.setLayout(layout);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridwidth = 2;
+        constraints.gridheight = 1;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = new Insets(20,20,20,20);
+        confirmButton.addActionListener(this);
+        layout.setConstraints(confirmButton,constraints);
+        buttonPanel.add(confirmButton);
+        constraints.anchor = GridBagConstraints.EAST;
+        cancelButton.addActionListener(this);
+        layout.setConstraints(cancelButton,constraints);
+        buttonPanel.add(cancelButton);
     }
-
     private RecordDialog (ApplicationContext context,Long[] selectId) {
         this.context = context;
         this.selectId = selectId;
@@ -101,7 +127,8 @@ public class RecordDialog extends JDialog {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-
-
+    }
 }

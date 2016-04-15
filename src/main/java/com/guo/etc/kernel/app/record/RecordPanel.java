@@ -3,7 +3,6 @@ package com.guo.etc.kernel.app.record;
 import com.guo.etc.kernel.app.base.BasePanel;
 import com.guo.etc.kernel.model.Record;
 import com.guo.etc.kernel.service.RecordService;
-import com.sun.prism.impl.Disposer;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
@@ -34,7 +33,7 @@ public class RecordPanel extends BasePanel {
 
     @Override
     public String[] tableHeader() {
-        return new String[] {"序号","车牌号码","车辆类型","RSU编号","RSU位置","收费金额"};
+        return new String[] {"序号","车牌号码","车辆类型","RSU编号","RSU位置","车道号","交易时间","收费金额"};
     }
 
     @Override

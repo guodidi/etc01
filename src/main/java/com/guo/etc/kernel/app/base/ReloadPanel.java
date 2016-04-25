@@ -1,8 +1,6 @@
 package com.guo.etc.kernel.app.base;
 
 import com.guo.etc.kernel.app.StartFrame;
-import org.springframework.context.ApplicationContext;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +15,13 @@ public class ReloadPanel {
         StartFrame.contentPanel.setLayout(new BorderLayout());
         StartFrame.contentPanel.removeAll();
         StartFrame.contentPanel.add(basePanel);
+        SwingUtilities.updateComponentTreeUI(StartFrame.contentPanel);
+    }
+
+    public static void reloadSimulatePanel(JPanel panel) {
+        StartFrame.contentPanel.setLayout(new BorderLayout());
+        StartFrame.contentPanel.removeAll();
+        StartFrame.contentPanel.add(panel);
         SwingUtilities.updateComponentTreeUI(StartFrame.contentPanel);
     }
 }

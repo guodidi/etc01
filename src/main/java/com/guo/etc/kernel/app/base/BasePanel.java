@@ -32,12 +32,19 @@ public abstract class BasePanel extends JPanel {
 
     /*
     * 显示面板
+    * 显示带有表格的Janel
     * */
     public void viewJPanel() {
         this.setLayout(new BorderLayout());
         DataTableJScrollPane dataTableJScrollPane = new DataTableJScrollPane(tableData(),tableHeader());
         this.add(dataTableJScrollPane,BorderLayout.CENTER);
         this.add(setButtonJPanel(), BorderLayout.NORTH);
+    }
+    /*
+    * 显示不带有表格的JPanel
+    * */
+    public void viewSimulatePanel() {
+        this.setLayout(new BorderLayout());
     }
 
     public BasePanel(){

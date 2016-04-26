@@ -34,6 +34,15 @@ public class SiPanel extends JPanel implements Runnable{
     public static BufferedReader in = null;
     public static PrintWriter out = null;
 
+    //与网络状态相关的变量
+    private static int connectionStatus = 0;
+    private final int DISCONNECTED = 1;
+    private final int DISCONNECTING = 2;
+    private final int BEGIN_CONNECT = 3;
+    private final int CONNECTED = 4;
+    private final String END_FLAG = "END_FLAG_SESSION";
+    private Thread t = null;
+
 
 
 
@@ -54,9 +63,19 @@ public class SiPanel extends JPanel implements Runnable{
 
     private SiPanel(){
         initGUI();
+        initCom();
         initActionListener();
     }
-
+    //设置组件的基本行为
+    private void initCom() {
+        disConnectButton.setEnabled(false);
+        showMessageTA.setEnabled(false);
+        sx.setEnabled(false);
+        sendButton.setEnabled(false);
+        sendTF.setEnabled(false);
+        ipTF.setText("127.0.0.1");
+        portTF.setText("1234");
+    }
 
 
     //界面初始化
@@ -84,7 +103,8 @@ public class SiPanel extends JPanel implements Runnable{
 
         this.addCom(sendTF,c,4,7,5,1);
         c.weighty = 0.5;
-        JScrollPane showJS = new JScrollPane(showMessageTA,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane showJS = new JScrollPane(showMessageTA,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         c.weighty = 0;
         this.addCom(showJS,c,4,0,0,6);
         this.addCom(sendButton,c,9,7,0,1);
@@ -105,19 +125,20 @@ public class SiPanel extends JPanel implements Runnable{
         //功能完成
         connectButton.addActionListener((n)->{
             if(!ipTF.getText().equals("")&&!portTF.getText().equals("")){
-                initClientSocket();
+                connectionStatus = BEGIN_CONNECT;
+                t = new Thread(this);
+                t.start();
             }
         });
 
         disConnectButton.addActionListener((n)->{
-
+            connectionStatus = DISCONNECTING;
         });
 
         sendButton.addActionListener((n)->{
             String sendMessage = sendTF.getText();
             if (!sendMessage.equals("")) {
                 sendButton.setEnabled(false);
-                //ToDo 增加到输入框中
                 appendContent("客户端 ： "+sendMessage);
                 sendString(sendMessage);
             }
@@ -125,22 +146,6 @@ public class SiPanel extends JPanel implements Runnable{
             sendButton.setEnabled(true);
         });
 
-    }
-
-    //初始化Socket，非阻塞的方法
-    private void initClientSocket() {
-        try {
-            socket = new Socket(ipTF.getText(),Integer.parseInt(portTF.getText()));
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            connectButton.setEnabled(false);
-            sx.setText("连接成功");
-            //新建一个线程，完成数据接收
-            new Thread(this).start();
-        } catch (IOException e) {
-            cleanUp();
-            System.out.println("连接失败");
-        }
     }
 
     //将接收到的文本添加到TextArea中
@@ -152,16 +157,95 @@ public class SiPanel extends JPanel implements Runnable{
     private static void sendString(String s) {
         synchronized (toSend) {
             toSend.append(s + "\n");
-            if (toSend.length()!= 0) {
-                out.print(toSend);
-                out.flush();
-                toSend.setLength(0);
-            }
         }
     }
 
-    //善后工作
-    private static void cleanUp() {
+    @Override
+    public void run() {
+        while (true) {
+
+            switch (connectionStatus){
+                case BEGIN_CONNECT:
+                    initClientSocket();
+                    break;
+                case CONNECTED:
+                    ReceiveOrSend();
+                    break;
+                case DISCONNECTING:
+                    breakConnection();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    //初始化Socket，非阻塞的方法
+    private void initClientSocket() {
+        try {
+            socket = new Socket(ipTF.getText(),Integer.parseInt(portTF.getText()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            connectButton.setEnabled(false);
+            disConnectButton.setEnabled(true);
+            sendButton.setEnabled(true);
+            sendTF.setEnabled(true);
+            sx.setText("");
+            sx.setText("连接成功");
+
+            //new Thread(repaintGUI).start();
+            connectionStatus = CONNECTED;
+        } catch (IOException e) {
+            sx.setText("");
+            sx.setText("连接失败，可能是因为服务端尚未开启");
+            connectionStatus = DISCONNECTED;
+            cleanUp();
+        }
+    }
+
+    //发送或者是接收数据
+    private void ReceiveOrSend() {
+        //发送数据到服务端
+        if (toSend.length() != 0) {
+            out.print(toSend);
+            out.flush();
+            toSend.setLength(0);
+        }
+
+        // 接收来自服务端的数据
+        try {
+            if (in.ready()) {
+                String s = in.readLine();
+                if (s.equals(END_FLAG)){
+                    breakConnection();
+                }
+                else {
+                    System.out.print("接收来自服务端的数据是：");
+                    System.out.println(s);
+                    appendContent("服务端 ： "+s);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("接收来自服务端数据出错，请及时解决");
+            e.printStackTrace();
+        }
+    }
+
+    //断开连接之前的操作
+    private void breakConnection() {
+        out.print(END_FLAG);
+        out.flush();
+        sx.setText("");
+        sx.setText("尚未连接");
+        connectButton.setEnabled(true);
+        disConnectButton.setEnabled(false);
+        sendButton.setEnabled(false);
+        sendTF.setEnabled(false);
+        connectionStatus = DISCONNECTED;
+        cleanUp();
+    }
+
+    //关闭资源
+    private void cleanUp() {
         try {
             if (socket != null) {
                 socket.close();
@@ -182,21 +266,17 @@ public class SiPanel extends JPanel implements Runnable{
             out.close();
             out = null;
         }
-    }
 
-    @Override
-    public void run() {
-        while (true) {
+        if (t != null) {
             try {
-                if (in.ready()) {
-                    String s = in.readLine();
-                    System.out.print("接收来自服务端的数据是：");
-                    System.out.println(s);
-                    appendContent("服务端 ： "+s);
-                }
-            } catch (IOException e) {
+                t.join();
+                t = null;
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
     }
+
+
 }

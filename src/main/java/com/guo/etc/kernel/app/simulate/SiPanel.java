@@ -1,6 +1,9 @@
 package com.guo.etc.kernel.app.simulate;
 
-import com.guo.etc.kernel.app.base.BasePanel;
+import com.guo.etc.kernel.model.Record;
+import com.guo.etc.kernel.service.RecordService;
+import org.springframework.context.ApplicationContext;
+import tcpSocket.EncodeData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +46,8 @@ public class SiPanel extends JPanel implements Runnable{
     private final String END_FLAG = "END_FLAG_SESSION";
     private Thread t = null;
 
-
+    //和数据库相关
+    private ApplicationContext context = null;
 
 
 
@@ -54,14 +58,15 @@ public class SiPanel extends JPanel implements Runnable{
 
     private static SiPanel siPanel = null;
 
-    public static SiPanel getInstance(){
+    public static SiPanel getInstance(ApplicationContext context){
         if (siPanel == null) {
-            siPanel = new SiPanel();
+            siPanel = new SiPanel(context);
         }
         return siPanel;
     }
 
-    private SiPanel(){
+    private SiPanel(ApplicationContext context){
+        this.context = context;
         initGUI();
         initCom();
         initActionListener();
@@ -221,7 +226,22 @@ public class SiPanel extends JPanel implements Runnable{
                 else {
                     System.out.print("接收来自服务端的数据是：");
                     System.out.println(s);
-                    appendContent("服务端 ： "+s);
+                    String[] info = EncodeData.getInfo(s);
+                    for (String ss: info) {
+                        System.out.println(ss);
+                    }
+                    /*
+                    * 根据得到的字符串，解析过得数据
+                    * */
+
+                    if (info != null){
+                        RecordService recordService = (RecordService)context.getBean(RecordService.class);
+                        Record record = new Record();
+                        record.setVehicleId(info[0]);
+
+                        recordService.addRecord(record);
+                    }
+                    appendContent("服务端 ： " + s);
                 }
             }
         } catch (IOException e) {

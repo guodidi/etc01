@@ -121,7 +121,7 @@ public class RecordDialog extends JDialog implements ActionListener {
         } else {
 
         }
-
+        recordDialog = new RecordDialog(context,selectId);
         return recordDialog;
 
     }

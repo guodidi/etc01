@@ -21,6 +21,9 @@ public interface BaseDao {
     //根据一个类名找到该类的全部数据
     public <T> List<T> findAllEntity(Class<T> clazz);
 
+    //根据sql语言查找相应的对象
+    public <T> T findBySql(String string);
+
 
 
 }

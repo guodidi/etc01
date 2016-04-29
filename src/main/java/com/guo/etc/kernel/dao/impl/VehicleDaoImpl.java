@@ -46,4 +46,10 @@ public class VehicleDaoImpl extends BaseDaoImpl implements VehicleDao {
     public List<Vehicle> findAllVehicle() {
         return super.findAllEntity(Vehicle.class);
     }
+
+    @Override
+    public Vehicle findByVehicleID(String vehicleID) {
+        String sql = "";
+        return null;
+    }
 }

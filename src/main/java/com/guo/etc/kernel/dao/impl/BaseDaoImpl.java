@@ -52,4 +52,12 @@ public class BaseDaoImpl implements BaseDao {
         Query query = this.getSession(sessionFactory).createQuery(hql);
         return query.list();
     }
+
+    //根据传入的HQL语言来查找记录
+    @Override
+    public <T> T findBySql(String sourceHQL) {
+        String hql = sourceHQL;
+        return (T)this.getSession(sessionFactory).createQuery(hql);
+    }
+
 }

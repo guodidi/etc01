@@ -33,7 +33,7 @@ public class SocketTrans {
             return true;
         } catch (IOException e) {
             System.out.println("连接失败，可能是因为服务端尚未开启");
-            e.printStackTrace();
+            //e.printStackTrace();
             cleanUp();
             return false;
         }

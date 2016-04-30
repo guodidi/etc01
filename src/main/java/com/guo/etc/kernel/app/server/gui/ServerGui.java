@@ -1,5 +1,6 @@
 package com.guo.etc.kernel.app.server.gui;
 
+import com.guo.etc.kernel.app.server.encode.EncodeData;
 import com.guo.etc.kernel.app.server.transmission.Transmission;
 import org.springframework.context.ApplicationContext;
 
@@ -9,7 +10,7 @@ import java.awt.*;
 /**
  * Created by Administrator on 2016/4/24.
  */
-public class GUI extends JPanel implements Runnable {
+public class ServerGui extends JPanel implements Runnable {
 
     /*
     * 880*580
@@ -33,12 +34,17 @@ public class GUI extends JPanel implements Runnable {
     private JLabel vehicleIDLabel = new JLabel("车牌号码");
     private JTextField vehicleIDTF = new JTextField(20);
 
+    private JLabel vehicleTypeLabel = new JLabel("车辆类型");
+    private JTextField vehicleTypeTF = new JTextField(20);
+
+    private JLabel obuIDLabel = new JLabel("OBU编号");
+    private JTextField obuIDTF = new JTextField(20);
+
     private JLabel rsuIDLabel = new JLabel("RSU编号");
     private JTextField rsuIDTF = new JTextField(20);
 
     private JLabel laneIDLabel = new JLabel("车道编号");
     private JTextField laneIDTF = new JTextField(20);
-
     private static final String END_FLAG = "END_FLAG_SESSION";
 
 
@@ -58,8 +64,16 @@ public class GUI extends JPanel implements Runnable {
     //Spring相关
     private ApplicationContext context = null;
 
+    private static ServerGui serverGui = null;
 
-    public GUI() {
+    public static ServerGui getInstance() {
+        if (serverGui == null) {
+            serverGui = new ServerGui();
+        }
+        return serverGui;
+    }
+
+    private ServerGui() {
         initClientGUI();
         initCom();
         initActionListener();
@@ -74,11 +88,14 @@ public class GUI extends JPanel implements Runnable {
         sendTF.setEnabled(false);
         ipTF.setText("127.0.0.1");
         portTF.setText("1234");
-        vehicleIDTF.setText("京·F23565");
+        vehicleIDTF.setText("闽C");
+        vehicleTypeTF.setText("小型车");
         rsuIDTF.setText("10");
         laneIDTF.setText("3");
         ipTF.setText("127.0.0.1");
         portTF.setText("1234");
+        desTF.setText("服务器尚未连接");
+        obuIDTF.setText("123");
     }
 
 
@@ -99,7 +116,7 @@ public class GUI extends JPanel implements Runnable {
 
         sendButton.addActionListener((n)->{
             //TODO encode or Decode
-            sendMessage = sendTF.getText();
+            sendMessage = EncodeData.combinedAllData(vehicleIDTF.getText(), vehicleTypeTF.getText(), obuIDTF.getText(), rsuIDTF.getText(), laneIDTF.getText());
             if (!sendMessage.equals("")) {
                 sendButton.setEnabled(false);
                 appendContent("服务端 ： "+sendMessage);
@@ -147,12 +164,17 @@ public class GUI extends JPanel implements Runnable {
         this.addCom(vehicleIDLabel,c,0,3,1,1);
         this.addCom(vehicleIDTF,c,1,3,3,1);
 
-        this.addCom(rsuIDLabel,c,0,4,1,1);
-        this.addCom(rsuIDTF,c,1,4,3,1);
+        this.addCom(vehicleTypeLabel,c,0,4,1,1);
+        this.addCom(vehicleTypeTF,c,1,4,3,1);
 
-        this.addCom(laneIDLabel,c,0,5,1,1);
-        this.addCom(laneIDTF,c,1,5,3,1);
+        this.addCom(obuIDLabel,c,0,5,1,1);
+        this.addCom(obuIDTF,c,1,5,3,1);
 
+        this.addCom(rsuIDLabel,c,0,6,1,1);
+        this.addCom(rsuIDTF,c,1,6,3,1);
+
+        this.addCom(laneIDLabel,c,0,7,1,1);
+        this.addCom(laneIDTF,c,1,7,3,1);
 
         this.addCom(connectButton,c,1,10,1,0);
         this.addCom(disConnectButton,c,3,10,1,0);

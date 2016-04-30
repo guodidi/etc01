@@ -48,4 +48,19 @@ public class TypeServiceImpl implements TypeService {
     public List<VehicleType> findAllVehicleType() {
         return typeDao.findAllVehicleType();
     }
+
+    @Override
+    public VehicleType findTypeByHql(String type) {
+        VehicleType vehicleType = typeDao.findTypeByHql(type);
+
+        if (vehicleType != null) {
+            System.out.println("- - - - test start - - - - ");
+            System.out.println("type : "+vehicleType.getType());
+            System.out.println("fee  : "+vehicleType.getFee());
+            System.out.println("- - - - test end - - - - - ");
+            return vehicleType;
+        }
+        return null;
+
+    }
 }

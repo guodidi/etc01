@@ -48,8 +48,14 @@ public class VehicleDaoImpl extends BaseDaoImpl implements VehicleDao {
     }
 
     @Override
-    public Vehicle findByVehicleID(String vehicleID) {
-        String sql = "";
+    public Vehicle findByVehicleID(String vehicleID,String vehicleType,String obuMac) {
+        String sql2 = "from "+Vehicle.class.getName() +" v "+"where v.vehicleId = '"+vehicleID+"' and v.vehicleType = '"+vehicleType+"' and v.obuMac = '"+obuMac+"'";
+        System.out.println("sql 2 : "+sql2);
+        Vehicle vehicle = super.findBySql(sql2);
+        if (vehicle != null) {
+            return vehicle;
+        }
+        System.out.println("查找失败");
         return null;
     }
 }

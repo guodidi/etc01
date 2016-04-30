@@ -177,10 +177,23 @@ public class SimulatePanel extends JPanel implements Runnable{
                     } else if (SocketTrans.ready()){
                         //TODO 如果可以进行读写了就可以采用NetWork.readMes方法，并添加到文本区域
                         receiveMes = SocketTrans.readMes();
+
                         if (receiveMes.equals(END_FLAG)) {
                             connectionStatus = DISCONNECTED;
                         } else {
                             appendContent("服务端说："+receiveMes);
+
+                            if (DecodeData.adjustFormat(receiveMes)){
+                                if (DecodeData.setContext(context) &&DecodeData.adjust(receiveMes)) {
+                                    //TODO 验证成功，对数据正常的车辆进行准确的收费
+                                    System.out.println("验证成功，对数据正常的车辆进行准确的收费");
+                                } else {
+                                    //TODO 验证失败，无法对该车辆进行准确收费，但是仍然将记录存入数据库当中
+                                    System.out.println("验证失败，无法对该车辆进行准确收费，但是仍然将记录存入数据库当中");
+                                }
+                            }else {
+                                System.out.println("格式错误");
+                            }
                             System.out.println("服务端 ："+receiveMes);
                         }
                     }else {}

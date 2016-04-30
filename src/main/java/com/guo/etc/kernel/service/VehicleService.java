@@ -19,4 +19,6 @@ public interface VehicleService {
     public Vehicle findVehicleById(Long id);
 
     public List<Vehicle> findAllVehicle();
+
+    public boolean findByHql(String vehicleID, String vehicleType, String obu_mac);
 }

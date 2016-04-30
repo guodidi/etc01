@@ -1,7 +1,5 @@
 package com.guo.etc.kernel.app.server.encode;
 
-import java.util.regex.Pattern;
-
 /**
  * Created by Administrator on 2016/4/25.
  * 本计算机中采用的编码格式是：UTF-8
@@ -9,21 +7,8 @@ import java.util.regex.Pattern;
  */
 public class EncodeData {
 
-
-    //解析得到相应的数据
-    public static String[] getInfo(String sourceStr){
-        //定义正则匹配
-        Pattern pattern = Pattern.compile("#");
-        String[] result = null;
-        if (sourceStr.startsWith("FFFF")&&sourceStr.endsWith("FF")){
-            String subStr = sourceStr.substring(4,sourceStr.length()-2);
-            result = pattern.split(subStr);
-        }
-        return result;
-    }
-
     //组合为完整的数据发送帧
-    public static void combinedAllData(String ... strings) {
+    public static String combinedAllData(String ... strings) {
         String subStr = combinedData(strings);
         String BCCStr = calculateBCC(subStr);
         StringBuffer stringBuffer = new StringBuffer();
@@ -36,6 +21,7 @@ public class EncodeData {
 
         System.out.println("完整的数据帧格式如下：");
         System.out.println(stringBuffer.toString());
+        return stringBuffer.toString();
     }
 
     //组合数据数据帧部分
@@ -57,7 +43,7 @@ public class EncodeData {
     * 最后结果-7
     * */
     public static String calculateBCC(String sourceStr){
-        //System.out.println("进入BCC运算的字符串是： "+sourceStr);
+        System.out.println("进入BCC运算的字符串是： "+sourceStr);
         byte[] bytes = sourceStr.getBytes();
         byte resultByte =bytes[0];
 
@@ -65,11 +51,15 @@ public class EncodeData {
         for (int i=1;i<bytes.length;i++){
             resultByte= (byte)(resultByte^bytes[i]);
         }
-        String str = (Integer.toHexString(resultByte));//输出是FFFFFFF9有四个字节，正好是int的类型的全部
-        //System.out.println(str);
+        String str = (Integer.toHexString(resultByte));//输出是FFFFFFF9有四个字节，正好是int的类型的全部, 00000A
+        String BCC = null;
+        if (str.length()==1){
+            BCC = "0"+str;
 
-        //截取后面两位
-        String BCC = str.substring(str.length()-2);
+        }else {
+            BCC = str.substring(str.length()-2);
+        }
+        System.out.println(BCC);
         return BCC;
     }
 
@@ -83,54 +73,9 @@ public class EncodeData {
     * 推荐使用Notepad++编辑器+HEX-EDIT插件，可以简单的查看某个字符的16进制编码
     * */
     public static void main(String[] args) {
-        combinedAllData("guo","guo","guo","guo","guo","yao","hui","郭","杨");
-
-        combinedAllData("guo","guo","guo","guo","guo","yao");
+        System.out.println("=====================================");
+        calculateBCC("京·F23565#大型车#10#3");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    * 若让自己采用传输格式，我可以用以下的办法，分分钟解析完毕
-    * 明天要完成的就是，在接收到这一条信息的时候，然后解析它，并显示到文字输入区域
-    * */
-/*    public static void main(String[] args) {
-        //System.out.println("HelloWorld".length());
-
-        Pattern pattern = Pattern.compile("#");
-        String s = "FFFFss#jk#45#852#lkd#guoyao#郭垚FF";
-*//*        String m =String.valueOf(new Date());
-        System.out.println("=================================");
-        System.out.println(m.length());
-        System.out.println(m);
-        System.out.println("==================================");*//*
-        if (s.startsWith("FFFF")&&s.endsWith("FF")){
-            String subStr = s.substring(4,s.length()-2);
-            String[] sp = pattern.split(subStr);
-            for (String p :sp){
-                System.out.println(p);
-            }
-        }
-
-    }*/
 }
 
 

@@ -6,6 +6,8 @@ import com.guo.etc.kernel.service.RecordService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ public class RecordPanel extends BasePanel {
 
     @Override
     public String[] tableHeader() {
-        return new String[] {"序号","车牌号码","车辆类型","RSU编号","RSU位置","车道号","交易时间","收费金额"};
+        return new String[] {"序号","车牌号码","车辆类型","RSU编号","车道","交易时间","交易状态","收费金额"};
     }
 
     @Override
@@ -44,7 +46,7 @@ public class RecordPanel extends BasePanel {
         if (recordList != null) {
             String[][] records = new String[recordList.size()][6];
             for (Record record : recordList) {
-                String[] temp = new String[] {String.valueOf(record.getId()),record.getVehicleId(),record.getVehicleType(),record.getRsuId(),record.getRsuSite(),String.valueOf(record.getTradeTime()).substring(0,String.valueOf(record.getTradeTime()).length()-2),String.valueOf(record.getFee())};
+                String[] temp = new String[] {String.valueOf(record.getId()),record.getVehicleId(),record.getVehicleType(),record.getRsuId(),record.getRoadId(),convertTime(record.getTradeTime()),record.getRsuSite(),String.valueOf(record.getFee())};
                 records[i++] = temp;
             }
             return records;
@@ -55,5 +57,18 @@ public class RecordPanel extends BasePanel {
     @Override
     public JPanel setButtonJPanel() {
         return new RecordMiddlePanel(context);
+    }
+
+    /**
+     *将从数据库中读取的数据进行转换输出
+     * @param timestamp
+     * @return String
+     */
+    private String convertTime(Timestamp timestamp) {
+        if (timestamp != null) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+            return simpleDateFormat.format(timestamp);
+        }
+        return null;
     }
 }

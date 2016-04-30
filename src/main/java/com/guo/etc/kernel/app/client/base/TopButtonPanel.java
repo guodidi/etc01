@@ -102,6 +102,7 @@ public class TopButtonPanel extends JPanel implements ActionListener  {
         }else if (command.equals(simulateFeeName)) {
             //ReloadPanel.reloadPanel(SimulatePanel.getInstance(context));
             System.out.println("模拟收费");
+            //ReloadPanel.reloadSimulatePanel(SiPanel.getInstance(context));
             ReloadPanel.reloadSimulatePanel(SimulatePanel.getInstance(context));
         }else {
             System.out.println("啥JB玩意儿啊");

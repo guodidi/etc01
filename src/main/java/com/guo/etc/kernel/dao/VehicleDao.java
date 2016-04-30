@@ -23,7 +23,7 @@ public interface VehicleDao {
     public List<Vehicle> findAllVehicle();
 
     //根据车辆的车牌查找该车所在的记录
-    public Vehicle findByVehicleID(String vehicleID);
+    public Vehicle findByVehicleID(String vehicleID, String vehicleType,String obuMac);
 }
 
 

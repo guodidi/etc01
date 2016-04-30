@@ -46,4 +46,16 @@ public class TypeDaoImpl extends BaseDaoImpl implements TypeDao {
     public List<VehicleType> findAllVehicleType() {
         return super.findAllEntity(VehicleType.class);
     }
+
+    @Override
+    public VehicleType findTypeByHql(String vehicleType) {
+        String hql = "from "+VehicleType.class.getName()+" t where t.type = '"+vehicleType+"'";
+        System.out.println("hql is : "+hql);
+        VehicleType vehicleType1 = super.findBySql(hql);
+        if (vehicleType1 != null) {
+            return vehicleType1;
+        }
+        System.out.println("查找失败");
+        return null;
+    }
 }

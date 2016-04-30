@@ -20,4 +20,6 @@ public interface TypeService {
 
     public List<VehicleType> findAllVehicleType();
 
+    public VehicleType findTypeByHql(String hql);
+
 }

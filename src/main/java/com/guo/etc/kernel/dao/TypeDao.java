@@ -1,6 +1,7 @@
 package com.guo.etc.kernel.dao;
 
 
+import com.guo.etc.kernel.model.Vehicle;
 import com.guo.etc.kernel.model.VehicleType;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface TypeDao {
     public VehicleType findVehicleTypeById(Long id);
 
     public List<VehicleType> findAllVehicleType();
+
+    public VehicleType findTypeByHql(String vehicleType);
 
 }

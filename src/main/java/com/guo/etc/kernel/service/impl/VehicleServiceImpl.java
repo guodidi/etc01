@@ -46,4 +46,14 @@ public class VehicleServiceImpl implements VehicleService {
     public List<Vehicle> findAllVehicle() {
         return vehicleDao.findAllVehicle();
     }
+
+    @Override
+    public boolean findByHql(String vehicleID, String vehicleType, String obuMac) {
+        Vehicle vehicle = vehicleDao.findByVehicleID(vehicleID, vehicleType,obuMac);
+        if (vehicle != null) {
+            return true;
+        }
+        System.out.println("vehicleID和vehicleType的类型不匹配！");
+        return false;
+    }
 }

@@ -8,7 +8,7 @@ public interface Constant {
     //定义窗体大小
     interface WindowSize{
         int width = 1000;
-        int height = 700;
+        int height = 650;
     }
 
     //定义固定对话框大小

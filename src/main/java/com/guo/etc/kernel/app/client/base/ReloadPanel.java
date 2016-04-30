@@ -1,6 +1,6 @@
 package com.guo.etc.kernel.app.client.base;
 
-import com.guo.etc.kernel.a_launch.StartClient;
+import com.guo.etc.kernel.a_launch.Start;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +13,16 @@ public class ReloadPanel {
 
     public static void reloadPanel(BasePanel basePanel) {
         basePanel.viewJPanel();
-        StartClient.contentPanel.setLayout(new BorderLayout());
-        StartClient.contentPanel.removeAll();
-        StartClient.contentPanel.add(basePanel);
-        SwingUtilities.updateComponentTreeUI(StartClient.contentPanel);
+        Start.contentPanel.setLayout(new BorderLayout());
+        Start.contentPanel.removeAll();
+        Start.contentPanel.add(basePanel);
+        SwingUtilities.updateComponentTreeUI(Start.contentPanel);
     }
 
     public static void reloadSimulatePanel(JPanel panel) {
-        StartClient.contentPanel.setLayout(new BorderLayout());
-        StartClient.contentPanel.removeAll();
-        StartClient.contentPanel.add(panel);
-        SwingUtilities.updateComponentTreeUI(StartClient.contentPanel);
+        Start.contentPanel.setLayout(new BorderLayout());
+        Start.contentPanel.removeAll();
+        Start.contentPanel.add(panel);
+        SwingUtilities.updateComponentTreeUI(Start.contentPanel);
     }
 }

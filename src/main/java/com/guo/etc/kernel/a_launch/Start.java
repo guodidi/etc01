@@ -6,19 +6,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 
 /**
  * Created by Administrator on 2016/4/8.
  */
-public class StartClient extends JFrame {
+public class Start extends JFrame {
 
     //这个contentPanel用来承载所有的内容组件，包括JScrollPanel,Buttons
     public static JPanel contentPanel = new JPanel();
 
     private ApplicationContext context = null;
 
-    public StartClient(ApplicationContext context) {
+    public Start(ApplicationContext context) {
         this.context = context;
         this.setVisible(true);
         initWindows();
@@ -52,7 +53,14 @@ public class StartClient extends JFrame {
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-            new StartClient(context);
+
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+            //UIManager.setLookAndFeel(new MotifLookAndFeel());
+            //UIManager.setLookAndFeel(new MetalLookAndFeel());//这个相当于没有变
+            //UIManager.setLookAndFeel(new WindowsLookAndFeel());
+        } catch (Exception e) {}
+        new Start(context);
     }
 
 }

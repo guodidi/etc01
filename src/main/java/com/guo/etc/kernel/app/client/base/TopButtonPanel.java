@@ -1,9 +1,9 @@
 package com.guo.etc.kernel.app.client.base;
 
 import com.guo.etc.kernel.app.client.rsu.RsuPanel;
+import com.guo.etc.kernel.app.client.simulate.SiPanel;
 import com.guo.etc.kernel.app.client.type.TypePanel;
 import com.guo.etc.kernel.app.client.record.RecordPanel;
-import com.guo.etc.kernel.app.client.simulate.SimulatePanel;
 import com.guo.etc.kernel.app.client.vehicle.VehiclePanel;
 import org.springframework.context.ApplicationContext;
 
@@ -100,10 +100,9 @@ public class TopButtonPanel extends JPanel implements ActionListener  {
             System.out.println("道路管理");
             ReloadPanel.reloadPanel(RsuPanel.getInstance(context));
         }else if (command.equals(simulateFeeName)) {
-            //ReloadPanel.reloadPanel(SimulatePanel.getInstance(context));
             System.out.println("模拟收费");
-            //ReloadPanel.reloadSimulatePanel(SiPanel.getInstance(context));
-            ReloadPanel.reloadSimulatePanel(SimulatePanel.getInstance(context));
+            ReloadPanel.reloadSimulatePanel(SiPanel.getInstance(context));
+            //ReloadPanel.reloadSimulatePanel(SimulatePanel.getInstance(context));
         }else {
             System.out.println("啥JB玩意儿啊");
         }

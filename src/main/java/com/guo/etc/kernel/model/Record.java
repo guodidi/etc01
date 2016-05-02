@@ -18,7 +18,7 @@ public class Record {
     private String roadId;
     private Timestamp tradeTime;
     private Long fee;
-    private String rsuSite;
+    private String tradeStatus;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -103,6 +103,7 @@ public class Record {
         if (rsuId != null ? !rsuId.equals(record.rsuId) : record.rsuId != null) return false;
         if (roadId != null ? !roadId.equals(record.roadId) : record.roadId != null) return false;
         if (tradeTime != null ? !tradeTime.equals(record.tradeTime) : record.tradeTime != null) return false;
+        if (tradeTime != null ? !tradeStatus.equals(record.tradeStatus) : record.tradeStatus != null) return false;
         if (fee != null ? !fee.equals(record.fee) : record.fee != null) return false;
 
         return true;
@@ -117,16 +118,17 @@ public class Record {
         result = 31 * result + (roadId != null ? roadId.hashCode() : 0);
         result = 31 * result + (tradeTime != null ? tradeTime.hashCode() : 0);
         result = 31 * result + (fee != null ? fee.hashCode() : 0);
+        result = 31 * result + (tradeStatus != null ? tradeStatus.hashCode() : 0);
         return result;
     }
 
     @Basic
-    @Column(name = "rsu_site", nullable = true, insertable = true, updatable = true, length = 255)
-    public String getRsuSite() {
-        return rsuSite;
+    @Column(name = "trade_status", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getTradeStatus() {
+        return tradeStatus;
     }
 
-    public void setRsuSite(String rsuSite) {
-        this.rsuSite = rsuSite;
+    public void setTradeStatus(String tradeStatus) {
+        this.tradeStatus = tradeStatus;
     }
 }

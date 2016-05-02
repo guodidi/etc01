@@ -87,23 +87,25 @@ public class DecodeData {
                 if (adjustInfo(strings[0],strings[1],strings[2])){
                     System.out.println("卧槽，对了，所有的信息验证成功");
                     //TODO 将该条记录插入到数据库之中
-                    insertInfo(strings);
+                    insertMatchSuccessInfo(strings);
                 } else {
                     //TODO 判断如果不一致，说明设备不匹配
+                    insertDeviceDismatch(strings);
                     System.out.println("数据不一致验证失败");
                 }
             } else {
                 //如果只有车牌号码
+                insertNoDeviceInfo(strings);
                 System.out.println("卧槽，这不对啊,信息不足呀");
             }
-
-
             //得到数据，解析完成调用判断车牌号码，Obu，
         } else {
             System.out.println("BCC验证不正确");
         }
         return false;
     }
+
+
 
     //仅仅是为了将ApplicationContext传入而已
     public static boolean setContext(ApplicationContext applicationContext) {
@@ -116,14 +118,47 @@ public class DecodeData {
     public static boolean adjustInfo(String vehicleId,String vehicleType,String obuMac) {
         VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
         boolean flag = vehicleService.findByHql(vehicleId,vehicleType,obuMac);
-        if (flag = true){
+        System.out.println("是否找到了相应的答案呢！！！！"+flag);
+        if (flag == true){
             return true;
         }
         return false;
     }
 
+    private static void insertNoDeviceInfo(String[] strings) {
+        RecordService recordService = (RecordService)context.getBean(RecordService.class);
+        Record record = new Record();
+
+
+        try {
+            record.setVehicleId(strings[0]);
+            record.setRsuId(strings[2]);
+            record.setRoadId(strings[3]);
+        }catch (ArrayIndexOutOfBoundsException e){
+            record.setVehicleId(strings[0]);
+            record.setRsuId(strings[1]);
+            record.setRoadId(strings[2]);
+        }
+        record.setFee(0L);
+        record.setTradeStatus("交易失败，车上无OBU");
+        record.setTradeTime(new Timestamp(System.currentTimeMillis()));
+        recordService.addRecord(record);
+    }
+
+    private static void insertDeviceDismatch(String[] strings) {
+        RecordService recordService = (RecordService)context.getBean(RecordService.class);
+        Record record = new Record();
+        record.setVehicleId(strings[0]);
+        record.setVehicleType(strings[1]);
+        record.setRsuId(strings[3]);
+        record.setRoadId(strings[4]);
+        record.setFee(0L);
+        record.setTradeStatus("交易失败，设备不匹配");
+        record.setTradeTime(new Timestamp(System.currentTimeMillis()));
+        recordService.addRecord(record);
+    }
     //取得相应的车型对应的价格
-    private static void insertInfo(String[] strings) {
+    private static void insertMatchSuccessInfo(String[] strings) {
         TypeService typeService = (TypeService)context.getBean(TypeService.class);
         RecordService recordService = (RecordService)context.getBean(RecordService.class);
         int fee = 0;
@@ -139,7 +174,7 @@ public class DecodeData {
         record.setRsuId(strings[3]);
         record.setRoadId(strings[4]);
         record.setFee((long) fee);
-        record.setRsuSite("交易成功");
+        record.setTradeStatus("交易成功");
         record.setTradeTime(new Timestamp(System.currentTimeMillis()));
         recordService.addRecord(record);
     }

@@ -1,5 +1,8 @@
 package com.guo.etc.kernel.app.client.base.data;
 
+import sun.font.FontFamily;
+import sun.font.FontManagerForSGE;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,9 +27,15 @@ public class DataTable extends JTable {
         this.setRowHeight(27);
         //设置表格颜色
         this.setGridColor(new Color(20,20,20));
-        //设置表头
+        Font tableFont = new Font("微软雅黑",Font.PLAIN,12);
+        setFont(tableFont);
+
+        //设置表头new Font("Menu.font", Font.PLAIN, 20)
         JTableHeader header = this.getTableHeader();
-        header.setPreferredSize(new Dimension(800,25));
+        header.setPreferredSize(new Dimension(800,35));
+        Font headerFont = new Font("幼圆",Font.BOLD,15);
+        header.setFont(headerFont);
+        //header.setFont();
 
         this.selectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override

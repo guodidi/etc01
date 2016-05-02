@@ -6,24 +6,17 @@ import com.guo.etc.kernel.app.server.transmission.Transmission;
 import javax.swing.*;
 
 /**
- * Created by Administrator on 2016/5/1.
+ * Created by Administrator on 2016/5/3.
  */
 public class SimulateServerPanel extends JPanel implements Runnable {
-    private static SimulateServerPanel simulateServerPanel = null;
-    private static final String END_FLAG = "END_FLAG_SESSION";
     private JPanel contentPanel;
+    private JPanel inputPanel;
+    private JPanel buttonPanel;
     private JTextField ipTF;
-    private JTextField portTF;
-    private JTextField desTF;
-    private JTextField vehicleIDTF;
-    private JTextField vehicleTypeTF;
-    private JTextField obuIDTF;
-    private JTextField rsuIDTF;
-    private JTextField laneIDTF;
-    private JButton sendButton;
-    private JButton connectButton;
-    private JButton disConnectButton;
     private JLabel ipLabel;
+    private JButton connectButton;
+    private JButton sendButton;
+    private JButton disConnectButton;
     private JLabel portLabel;
     private JLabel desLabel;
     private JLabel vehicleIDLabel;
@@ -31,6 +24,13 @@ public class SimulateServerPanel extends JPanel implements Runnable {
     private JLabel obuIDLabel;
     private JLabel rsuIDLabel;
     private JLabel laneIDLabel;
+    private JTextField portTF;
+    private JTextField desTF;
+    private JTextField vehicleIDTF;
+    private JTextField vehicleTypeTF;
+    private JTextField obuIDTF;
+    private JTextField rsuIDTF;
+    private JTextField laneIDTF;
 
     private Thread t = null;
 
@@ -44,6 +44,10 @@ public class SimulateServerPanel extends JPanel implements Runnable {
 
     private String sendMessage = null;
     private StringBuffer sendMess = new StringBuffer();
+
+    private static SimulateServerPanel simulateServerPanel = null;
+    private static final String END_FLAG = "END_FLAG_SESSION";
+
 
     private SimulateServerPanel() {
         this.add(contentPanel);
@@ -64,16 +68,14 @@ public class SimulateServerPanel extends JPanel implements Runnable {
         disConnectButton.setEnabled(false);
         desTF.setEnabled(false);
         sendButton.setEnabled(false);
-        ipTF.setText("127.0.0.1");
         portTF.setText("1234");
         vehicleIDTF.setText("闽C");
         vehicleTypeTF.setText("小型车");
         rsuIDTF.setText("10");
-        laneIDTF.setText("3");
+        laneIDTF.setText("4");
         ipTF.setText("127.0.0.1");
-        portTF.setText("1234");
-        desTF.setText("服务器尚未连接");
         obuIDTF.setText("123");
+        desTF.setText("服务器尚未连接");
     }
 
     private void initActionListener() {
@@ -104,12 +106,12 @@ public class SimulateServerPanel extends JPanel implements Runnable {
 
 
     public static void main(String[] args) {
-    JFrame frame = new JFrame("SimulateServerPanel");
-    frame.setContentPane(SimulateServerPanel.getInstance());
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.pack();
-    frame.setVisible(true);
-}
+        JFrame frame = new JFrame("SimulateServerPanel");
+        frame.setContentPane(SimulateServerPanel.getInstance());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 
     //一个线程只有当线程中的所有语句执行完毕的时候，才会自动结束
     @Override
@@ -177,6 +179,13 @@ public class SimulateServerPanel extends JPanel implements Runnable {
         connectButton.setEnabled(true);
         disConnectButton.setEnabled(false);
         sendButton.setEnabled(false);
+        portTF.setText("1234");
+        vehicleIDTF.setText("闽C");
+        vehicleTypeTF.setText("小型车");
+        rsuIDTF.setText("10");
+        laneIDTF.setText("4");
+        ipTF.setText("127.0.0.1");
+        obuIDTF.setText("123");
     }
 
     //建立好Socket连接之后的界面效果
@@ -186,5 +195,4 @@ public class SimulateServerPanel extends JPanel implements Runnable {
         desTF.setText("");
         desTF.setText("服务端和客户端已经成功建立连接");
     }
-
 }

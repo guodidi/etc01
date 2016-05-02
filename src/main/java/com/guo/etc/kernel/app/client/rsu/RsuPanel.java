@@ -9,29 +9,26 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/8.
+ * Created by Administrator on 2016/5/2.
  */
 public class RsuPanel extends BasePanel {
-    
+
     private ApplicationContext context = null;
     private static RsuPanel rsuPanel = null;
-    
+
     private RsuPanel(ApplicationContext context) {
         super();
         this.context = context;
         this.setVisible(true);
     }
-    
+
     public static RsuPanel getInstance(ApplicationContext context) {
         //if (rsuPanel == null) {
-            rsuPanel = new RsuPanel(context);
+        rsuPanel = new RsuPanel(context);
         //}
         return rsuPanel;
     }
 
-    
-    
-    
     @Override
     public String[] tableHeader() {
         return new String[] {"序号","RSU编号","RSU名称","RSU位置"};

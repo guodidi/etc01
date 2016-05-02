@@ -1,111 +1,42 @@
 package com.guo.etc.kernel.app.client.base;
 
-import com.guo.etc.kernel.app.client.rsu.RsuPanel;
-import com.guo.etc.kernel.app.client.simulate.SiPanel;
-import com.guo.etc.kernel.app.client.type.TypePanel;
 import com.guo.etc.kernel.app.client.record.RecordPanel;
+import com.guo.etc.kernel.app.client.rsu.RsuPanel;
+import com.guo.etc.kernel.app.client.simulate.SimulatePanel;
+import com.guo.etc.kernel.app.client.type.TypePanel;
 import com.guo.etc.kernel.app.client.vehicle.VehiclePanel;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
- * Created by Administrator on 2016/4/8.
+ * Created by Administrator on 2016/5/2.
  */
-public class TopButtonPanel extends JPanel implements ActionListener  {
+public class TopButtonPanel extends JPanel {
+    private JPanel contentPanel;
+    private JButton vehicleButton;
+    private JButton typeButton;
+    private JButton roadButton;
+    private JButton feeButton;
+    private JButton simulateButton;
 
-    private static int topButtonHeight = 35;
-    private static int topButtonWidth = 120;
-    private static int topButtonTopLine = 0;
+    private static TopButtonPanel buttonPanel = null;
 
-    private static String vehicleButtonName = "车辆管理";
-    private static String typeButtonName = "类型管理";
-    private static String roadButtonName = "道路管理";
-    private static String feeButtonName = "费用管理";
-    private static String simulateFeeName = "模拟收费";
-
-    private ApplicationContext context = null;
-
-
-    public TopButtonPanel(ApplicationContext context) {
-        this.context = context;
-        this.setLayout(new FlowLayout());
-        setPreferredSize(new Dimension(800,35));
-        this.setTopCommon();
-    }
-
-    private void setTopCommon() {
-        addVehicleButton(this);
-        addTypeButton(this);
-        addRoadButton(this);
-        addFeeButton(this);
-        addSimulataFeeButton(this);
-    }
-
-    private void addSimulataFeeButton(TopButtonPanel topButtonPanel) {
-        final JButton simulateFeeButton = new JButton("模拟收费");
-        simulateFeeButton.setBounds(115,topButtonTopLine,topButtonWidth,topButtonHeight);
-        simulateFeeButton.addActionListener(this);
-        topButtonPanel.add(simulateFeeButton);
-    }
-
-    private void addFeeButton(TopButtonPanel topButtonPanel) {
-        final JButton feeButton = new JButton("费用管理");
-        feeButton.setBounds(215,topButtonTopLine,topButtonWidth,topButtonHeight);
-        feeButton.addActionListener(this);
-        topButtonPanel.add(feeButton);
-    }
-
-    private void addRoadButton(TopButtonPanel topButtonPanel) {
-        final JButton roadButton = new JButton("道路管理");
-        roadButton.setBounds(315,topButtonTopLine,topButtonWidth,topButtonHeight);
-        roadButton.addActionListener(this);
-        topButtonPanel.add(roadButton);
-    }
-
-    private void addTypeButton(TopButtonPanel topButtonPanel) {
-        final JButton typeButton = new JButton("类型管理");
-        typeButton.setBounds(415,topButtonTopLine,topButtonWidth,topButtonHeight);
-        typeButton.addActionListener(this);
-        topButtonPanel.add(typeButton);
-    }
-
-    private void addVehicleButton(TopButtonPanel topButtonPanel) {
-        final JButton vehicleButton = new JButton("车辆管理");
-        vehicleButton.setBounds(515,topButtonTopLine,topButtonWidth,topButtonHeight);
-        vehicleButton.addActionListener(this);
-        topButtonPanel.add(vehicleButton);
-    }
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
-        if(command.equals(vehicleButtonName)){
-            System.out.println("车辆管理");
-            ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));
-        }else if(command.equals(typeButtonName)) {
-            System.out.println("类型管理");
-            ReloadPanel.reloadPanel(TypePanel.getInstance(context));
-        }else if (command.equals(feeButtonName)) {
-            System.out.println("费用管理");
-            ReloadPanel.reloadPanel(RecordPanel.getInstance(context));
-        }else if (command.equals(roadButtonName)) {
-            System.out.println("道路管理");
-            ReloadPanel.reloadPanel(RsuPanel.getInstance(context));
-        }else if (command.equals(simulateFeeName)) {
-            System.out.println("模拟收费");
-            ReloadPanel.reloadSimulatePanel(SiPanel.getInstance(context));
-            //ReloadPanel.reloadSimulatePanel(SimulatePanel.getInstance(context));
-        }else {
-            System.out.println("啥JB玩意儿啊");
+    public static TopButtonPanel getInstance(ApplicationContext context){
+        if (buttonPanel == null) {
+            buttonPanel = new TopButtonPanel(context);
         }
-
+        return buttonPanel;
     }
+
+    private TopButtonPanel(ApplicationContext context) {
+        this.add(contentPanel);
+        vehicleButton.addActionListener(e -> {ReloadPanel.reloadPanel(VehiclePanel.getInstance(context));});
+        typeButton.addActionListener(e -> {ReloadPanel.reloadPanel(TypePanel.getInstance(context));});
+        roadButton.addActionListener(e -> {ReloadPanel.reloadPanel(RsuPanel.getInstance(context));});
+        feeButton.addActionListener(e -> {ReloadPanel.reloadPanel(RecordPanel.getInstance(context));});
+        simulateButton.addActionListener(e -> {ReloadPanel.reloadSimulatePanel(SimulatePanel.getInstance(context));});
+    }
+
+
 }

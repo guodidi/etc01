@@ -1,148 +1,103 @@
 package com.guo.etc.kernel.app.client.vehicle;
 
+import com.guo.etc.kernel.model.Rsu;
 import com.guo.etc.kernel.model.Vehicle;
 import com.guo.etc.kernel.model.VehicleType;
+import com.guo.etc.kernel.service.RsuService;
 import com.guo.etc.kernel.service.TypeService;
 import com.guo.etc.kernel.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
 
-/**
- * Created by Administrator on 2016/4/9.
- */
-public class VehicleDialog extends JDialog implements ActionListener {
+public class VehicleDialog extends JDialog {
+    private JPanel contentPanel;
+    private JTextField vehicleIdTF;
+    private JTextField vehicleOwnerTF;
+    private JTextField obuMacTF;
+    private JPanel inputPanel;
+    private JButton confirmButton;
+    private JButton cancelButton;
+    private JPanel buttonPanel;
+    private JPanel desPanel;
+    private JLabel vehicleIdLabel;
+    private JLabel vehicleOwnerLabel;
+    private JLabel obuMacLabel;
+    private JLabel describeLabel;
+    private JComboBox vehicleTypeTF;
+    private JLabel vehicleTypeLabel;
 
     private ApplicationContext context = null;
-    private Long[] selectId ;
-
+    private Long[] selectId = null;
     private static VehicleDialog vehicleDialog = null;
+
     private static final String addName = "添加";
     private static final String deleteName = "删除";
     private static final String updateName = "修改";
-    private static final String cancelName = "取消";
 
-    private JButton confirmButton = new JButton("确定");
-    private JButton cancelButton = new JButton(cancelName);
-    private JLabel describeLabel = new JLabel();
+    private VehicleDialog(ApplicationContext context, Long[] selectId) {
 
-    private JPanel describePanel = new JPanel();
-    private JPanel inputPanel = new JPanel();
-    private JPanel buttonPanel = new JPanel();
-
-    private JLabel vehicleIdLabel = new JLabel("车牌号码");
-    private JTextField vehicleIdTF = new JTextField(30);
-    private JLabel vehicleTypeLabel = new JLabel("车牌类型");
-    private JComboBox vehicleTypeTF = null;
-    private JLabel vehicleOwnerLabel = new JLabel("车主");
-    private JTextField vehicleOwnerTF = new JTextField(30);
-    private JLabel obuMacLabel = new JLabel("OBU的MAC");
-    private JTextField obuMacTF = new JTextField(30);
-
-    private VehicleDialog (ApplicationContext context,Long[] selectId) {
+        setContentPane(contentPanel);
+        setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.context = context;
         this.selectId = selectId;
-        init();
+        confirmButton.addActionListener(e -> {
+            String command = e.getActionCommand();
+            if (command == addName) {
+                addVehicle();
+            } else if (command == updateName) {
+                updateVehicle();
+            } else if (command == deleteName) {
+                deleteVehicle();
+            } else {
+                System.out.println("关闭窗口");
+            }
+        });
+        cancelButton.addActionListener(e -> {
+            closeDialog();
+        });
+        setComBoxContent();
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     private VehicleDialog(ApplicationContext context) {
-        this.context = context;
-        init();
-    }
-
-
-    private void init() {
         super.dialogInit();
-        this.setLayout(new BorderLayout());
-        this.add(describePanel,BorderLayout.NORTH);
-        setDescribePanel();
-        this.add(inputPanel,BorderLayout.CENTER);
-        setInputPanel();
-        this.add(buttonPanel,BorderLayout.SOUTH);
-        setButtonPanel();
+        this.context = context;
+        setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(new Dimension(600,400));
-        setLocation(600 / 2 - getWidth() / 2, 400 / 2 - getHeight() / 2);
+        confirmButton.addActionListener(e -> {
+            String command = e.getActionCommand();
+            if (command == addName) {
+                addVehicle();
+            } else if (command == updateName) {
+                updateVehicle();
+            } else if (command == deleteName) {
+                deleteVehicle();
+            } else {
+                System.out.println("关闭窗口");
+            }
+        });
+        cancelButton.addActionListener(e -> {
+            closeDialog();
+        });
+        setComBoxContent();
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
-    private void setDescribePanel() {
-        describeLabel.setText("这是车辆管理Dialog");
-        GridBagLayout layout =new GridBagLayout();
-        buttonPanel.setLayout(layout);
-        GridBagConstraints constraints = new GridBagConstraints();
-        layout.setConstraints(describeLabel,constraints);
-        describePanel.add(describeLabel);
-    }
-
-    private void setInputPanel() {
+    private void setComBoxContent(){
         TypeService typeService = (TypeService)context.getBean(TypeService.class);
         java.util.List<VehicleType> VehicleTypes = typeService.findAllVehicleType();
         ArrayList<String> typeList = new ArrayList<String>();
         for(VehicleType type : VehicleTypes) {
             typeList.add(type.getType());
         }
-        vehicleTypeTF = new JComboBox(typeList.toArray());
-        GridBagLayout layout = new GridBagLayout();
-        inputPanel.setLayout(layout);
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10,20,10,20);
-        constraints.gridheight = 1;
-        constraints.gridwidth = 2;
-        layout.setConstraints(vehicleIdLabel, constraints);
-        inputPanel.add(vehicleIdLabel);
-        constraints.gridwidth = 0;
-        layout.setConstraints(vehicleIdTF, constraints);
-        inputPanel.add(vehicleIdTF);
-
-        constraints.gridheight = 1;
-        constraints.gridwidth = 2;
-        layout.setConstraints(vehicleTypeLabel, constraints);
-        inputPanel.add(vehicleTypeLabel);
-        constraints.gridwidth = 0;
-        vehicleTypeTF.setPreferredSize(new Dimension(330,28));//设置JBox的大小
-        layout.setConstraints(vehicleTypeTF, constraints);
-        inputPanel.add(vehicleTypeTF);
-
-        constraints.gridheight = 1;
-        constraints.gridwidth = 2;
-        layout.setConstraints(vehicleOwnerLabel, constraints);
-        inputPanel.add(vehicleOwnerLabel);
-        constraints.gridwidth = 0;
-        layout.setConstraints(vehicleOwnerTF, constraints);
-        inputPanel.add(vehicleOwnerTF);
-
-        constraints.gridheight = 1;
-        constraints.gridwidth = 2;
-        layout.setConstraints(obuMacLabel, constraints);
-        inputPanel.add(obuMacLabel);
-        constraints.gridwidth = 0;
-        layout.setConstraints(obuMacTF, constraints);
-        inputPanel.add(obuMacTF);
+        vehicleTypeTF.setModel(new DefaultComboBoxModel<>(typeList.toArray()));
     }
-
-    private void setButtonPanel() {
-        GridBagLayout layout =new GridBagLayout();
-        buttonPanel.setLayout(layout);
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 1;
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(20,20,20,20);
-        confirmButton.addActionListener(this);
-        layout.setConstraints(confirmButton,constraints);
-        buttonPanel.add(confirmButton);
-        constraints.anchor = GridBagConstraints.EAST;
-        cancelButton.addActionListener(this);
-        layout.setConstraints(cancelButton,constraints);
-        buttonPanel.add(cancelButton);
-    }
-
 
     public static VehicleDialog getAddInstance(ApplicationContext context) {
         if (vehicleDialog != null) {
@@ -184,28 +139,7 @@ public class VehicleDialog extends JDialog implements ActionListener {
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
-
-        if (command.equals(addName)) {
-            addUser();
-            this.dispose();
-        } else if (command.equals(updateName)) {
-            updateVehicle();
-            this.dispose();
-        } else if (command.equals(deleteName)) {
-            delete();
-            this.dispose();
-        } else if(command.equals(cancelName)) {
-            this.dispose();
-        } else {
-            System.out.println("Error has happen in VehicleDialog");
-            this.dispose();
-        }
-    }
-
-    private void addUser() {
+    private void addVehicle() {
         VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
         Vehicle vehicle = new Vehicle();
         vehicle.setVehicleId(vehicleIdTF.getText());
@@ -213,21 +147,29 @@ public class VehicleDialog extends JDialog implements ActionListener {
         vehicle.setVehicleOwner(vehicleOwnerTF.getText());
         vehicle.setObuMac(obuMacTF.getText());
         vehicleService.addVehicle(vehicle);
+        closeDialog();
     }
 
     private void updateVehicle() {
-        VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
+        VehicleService vehicleService = (VehicleService) context.getBean(VehicleService.class);
         Vehicle vehicle = vehicleService.findVehicleById(selectId[0]);
         vehicle.setVehicleId(vehicleIdTF.getText());
         vehicle.setVehicleType(String.valueOf(vehicleTypeTF.getSelectedItem()));
         vehicle.setVehicleOwner(vehicleOwnerTF.getText());
         vehicle.setObuMac(obuMacTF.getText());
         vehicleService.updateVehicle(vehicle);
+        closeDialog();
     }
 
-    private void delete() {
+    private void deleteVehicle() {
         VehicleService vehicleService = (VehicleService)context.getBean(VehicleService.class);
         vehicleService.deleteVehicle(selectId[0]);
+        closeDialog();
+
+    }
+
+    private void closeDialog (){
+        this.dispose();
     }
 
 }

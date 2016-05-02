@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/8.
+ * Created by Administrator on 2016/5/2.
  */
 public class TypePanel extends BasePanel {
 
@@ -23,7 +23,7 @@ public class TypePanel extends BasePanel {
     }
 
     public static TypePanel getInstance(ApplicationContext context) {
-            typePanel = new TypePanel(context);
+        typePanel = new TypePanel(context);
         return typePanel;
     }
 
@@ -50,7 +50,7 @@ public class TypePanel extends BasePanel {
             }
             return types;
         }
-         return null;
+        return null;
     }
 
     @Override
@@ -58,3 +58,4 @@ public class TypePanel extends BasePanel {
         return new TypeMiddlePanel(context);
     }
 }
+

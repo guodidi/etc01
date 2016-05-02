@@ -1,93 +1,93 @@
 package com.guo.etc.kernel.app.client.record;
 
+import com.guo.etc.kernel.model.Record;
+import com.guo.etc.kernel.model.Rsu;
+import com.guo.etc.kernel.service.RecordService;
+import com.guo.etc.kernel.service.RsuService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by Administrator on 2016/4/13.
- */
-public class RecordDialog extends JDialog implements ActionListener {
+public class RecordDialog extends JDialog {
+    private JPanel contentPanel;
+    private JTextField vehicleIdTF;
+    private JTextField chargeStatusTF;
+    private JTextField feeTF;
+    private JPanel inputPanel;
+    private JButton confirmButton;
+    private JButton cancelButton;
+    private JPanel buttonPanel;
+    private JPanel desPanel;
+    private JLabel vehicleIdLabel;
+    private JLabel chargeStatusLabel;
+    private JLabel feeLabel;
+    private JLabel describeLabel;
+    private JLabel rsuIdLabel;
+    private JLabel laneIdLabel;
+    private JLabel chargeTimeLabel;
+    private JTextField rsuIdTF;
+    private JTextField laneIdTF;
+    private JTextField chargeTimeTF;
 
     private ApplicationContext context = null;
     private Long[] selectId = null;
     private static RecordDialog recordDialog = null;
 
-    private static final String addName = "确认";
+    private static final String addName = "添加";
     private static final String deleteName = "删除";
-    private static final String updateName = "更新";
-    private static final String cancelName = "取消";
+    private static final String updateName = "修改";
 
-    private JButton confirmButton = new JButton("确定");
-    private JButton cancelButton = new JButton("取消");
-    private JLabel describeLabel = new JLabel();
-
-    JPanel describePanel = new JPanel();
-    JPanel inputPanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
-
-
-
-
-
-    private void init() {
+    private RecordDialog(ApplicationContext context, Long[] selectId) {
         super.dialogInit();
-        this.setLayout(new BorderLayout());
-        this.add(describePanel,BorderLayout.NORTH);
-        setDescribePanel();
-        this.add(inputPanel,BorderLayout.CENTER);
-        setInputPanel();
-        this.add(buttonPanel,BorderLayout.SOUTH);
-        setButtonPanel();
+        setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(new Dimension(600,400));
-        setLocation(600 / 2 - getWidth() / 2, 400 / 2 - getHeight() / 2);
-    }
-
-    private void setDescribePanel() {
-        describeLabel.setText("这是记录管理Dialog");
-        GridBagLayout layout =new GridBagLayout();
-        buttonPanel.setLayout(layout);
-        GridBagConstraints constraints = new GridBagConstraints();
-        layout.setConstraints(describeLabel,constraints);
-        describePanel.add(describeLabel);
-    }
-
-    private void setInputPanel() {
-
-    }
-
-    private void setButtonPanel() {
-        GridBagLayout layout =new GridBagLayout();
-        buttonPanel.setLayout(layout);
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 1;
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(20,20,20,20);
-        confirmButton.addActionListener(this);
-        layout.setConstraints(confirmButton,constraints);
-        buttonPanel.add(confirmButton);
-        constraints.anchor = GridBagConstraints.EAST;
-        cancelButton.addActionListener(this);
-        layout.setConstraints(cancelButton,constraints);
-        buttonPanel.add(cancelButton);
-    }
-    private RecordDialog (ApplicationContext context,Long[] selectId) {
         this.context = context;
         this.selectId = selectId;
-        init();
+        confirmButton.addActionListener(e -> {
+            String command = e.getActionCommand();
+            if (command == addName) {
+                addRsu();
+            } else if (command == updateName) {
+                updateRsu();
+            } else if (command == deleteName) {
+                deleteRsu();
+            } else {
+                System.out.println("关闭窗口");
+            }
+        });
+        cancelButton.addActionListener(e -> {
+            closeDialog();
+        });
+        this.pack();
+        //居中显示
+        this.setLocationRelativeTo(null);
     }
 
     private RecordDialog(ApplicationContext context) {
+        super.dialogInit();
         this.context = context;
-        init();
+        setContentPane(contentPanel);
+        setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        confirmButton.addActionListener(e -> {
+            String command = e.getActionCommand();
+            if (command == addName) {
+                addRsu();
+            } else if (command == updateName) {
+                updateRsu();
+            } else if (command == deleteName) {
+                deleteRsu();
+            } else {
+                System.out.println("关闭窗口");
+            }
+        });
+        cancelButton.addActionListener(e -> {
+            closeDialog();
+        });
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     public static RecordDialog getAddInstance(ApplicationContext context) {
@@ -95,7 +95,7 @@ public class RecordDialog extends JDialog implements ActionListener {
             recordDialog.dispose();
         }
         recordDialog = new RecordDialog(context);
-
+        recordDialog.confirmButton.setText(addName);
         return recordDialog;
     }
 
@@ -103,12 +103,16 @@ public class RecordDialog extends JDialog implements ActionListener {
         if (recordDialog != null) {
             recordDialog.dispose();
         }
-        if(selectId == null){
-            System.out.println("你大爷，这个什么都没有，我在刷新中");
-            return null;
-        }
         recordDialog = new RecordDialog(context,selectId);
-
+        recordDialog.vehicleIdTF.setText(String.valueOf(selectValues.get(1)));
+        recordDialog.rsuIdTF.setText(String.valueOf(selectValues.get(3)));
+        recordDialog.laneIdTF.setText(String.valueOf(selectValues.get(4)));
+        recordDialog.chargeTimeTF.setText(String.valueOf(selectValues.get(5)));
+        recordDialog.chargeStatusTF.setText(String.valueOf(selectValues.get(6)));
+        recordDialog.feeTF.setText(String.valueOf(selectValues.get(7)));
+        recordDialog.chargeTimeTF.setEnabled(false);
+        recordDialog.vehicleIdTF.setEnabled(false);
+        recordDialog.confirmButton.setText(updateName);
         return recordDialog;
     }
 
@@ -116,19 +120,52 @@ public class RecordDialog extends JDialog implements ActionListener {
         if (recordDialog != null) {
             recordDialog.dispose();
         }
-        if(selectId == null){
-            System.out.println("你大爷，这个什么都没有，我在删除中");
-        } else {
-
-        }
         recordDialog = new RecordDialog(context,selectId);
+        recordDialog.vehicleIdTF.setText(String.valueOf(selectValues.get(1)));
+        recordDialog.rsuIdTF.setText(String.valueOf(selectValues.get(3)));
+        recordDialog.laneIdTF.setText(String.valueOf(selectValues.get(4)));
+        recordDialog.chargeTimeTF.setText(String.valueOf(selectValues.get(5)));
+        recordDialog.chargeStatusTF.setText(String.valueOf(selectValues.get(6)));
+        recordDialog.feeTF.setText(String.valueOf(selectValues.get(7)));
+        recordDialog.vehicleIdTF.setEnabled(false);
+        recordDialog.rsuIdTF.setEnabled(false);
+        recordDialog.laneIdTF.setEnabled(false);
+        recordDialog.chargeTimeTF.setEnabled(false);
+        recordDialog.chargeStatusTF.setEnabled(false);
+        recordDialog.feeTF.setEnabled(false);
+        recordDialog.confirmButton.setText(deleteName);
         return recordDialog;
-
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    private void deleteRsu() {
+        System.out.println("这是删除操作");
+        RecordService rsuService = (RecordService)context.getBean(RecordService.class);
+        rsuService.deleteRecord(selectId[0]);
+        closeDialog();
+    }
+
+    private void updateRsu() {
+        System.out.println("这是修改操作");
+        RecordService recordService = (RecordService)context.getBean(RecordService.class);
+        Record record = recordService.findRecordById(selectId[0]);
+        record.setRsuId(rsuIdTF.getText());
+        record.setRoadId(laneIdTF.getText());
+        record.setTradeStatus(chargeStatusTF.getText());
+        if (feeTF.getText() == null) {
+            record.setFee(0L);
+        }
+        record.setFee(Long.valueOf(feeTF.getText()));
+        recordService.updateRecord(record);
+        closeDialog();
+    }
+
+    private void addRsu() {
 
     }
+
+    private void closeDialog (){
+        this.dispose();
+    }
+
 }

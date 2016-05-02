@@ -5,21 +5,27 @@ import org.springframework.context.ApplicationContext;
 import javax.swing.*;
 
 /**
- * Created by Administrator on 2016/5/1.
+ * Created by Administrator on 2016/5/3.
  */
 public class SimulateClientPanel extends JPanel implements Runnable {
-    private static SimulateClientPanel simulateClientPanel = null;
     private JPanel contentPanel;
+    private JPanel inputPanel;
+    private JPanel buttonPanel;
+    private JPanel inputPan;
     private JTextField ipTF;
     private JTextField portTF;
     private JTextField desTF;
     private JTextArea showMessageTA;
-    private JButton disConnectButton;
     private JButton connectButton;
+    private JButton sendButton;
+    private JButton disConnectButton;
+    private JPanel showPanel;
+    private JLabel ipLabel;
     private JLabel portLabel;
     private JLabel desLabel;
-    private JLabel ipLabel;
-    private JPanel buttonPanel;
+    private JScrollPane showJScroPanel;
+
+    private static SimulateClientPanel simulateClientPanel = null;
 
     //与文本显示相关的变量
     private StringBuffer sendBuffer = new StringBuffer();
@@ -40,6 +46,7 @@ public class SimulateClientPanel extends JPanel implements Runnable {
     private ApplicationContext context = null;
 
 
+
     private SimulateClientPanel(ApplicationContext context){
         this.context = context;
         this.add(contentPanel);
@@ -55,11 +62,13 @@ public class SimulateClientPanel extends JPanel implements Runnable {
 
     //设置组件的基本行为
     private void initCom() {
+        sendButton.setEnabled(false);
         disConnectButton.setEnabled(false);
         showMessageTA.setEnabled(false);
         desTF.setEnabled(false);
         ipTF.setText("127.0.0.1");
         portTF.setText("1234");
+        desTF.setText("尚未打开客户端");
     }
 
     //添加事件
@@ -78,37 +87,6 @@ public class SimulateClientPanel extends JPanel implements Runnable {
             connectionStatus = DISCONNECTING;
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*    public static void main(String[] args) {
-        JFrame frame = new JFrame("SimulateClientPanel");
-        frame.setContentPane(new SimulateClientPanel().contentPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }*/
 
     @Override
     public void run() {

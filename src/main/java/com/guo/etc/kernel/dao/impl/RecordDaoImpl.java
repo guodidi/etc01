@@ -37,8 +37,9 @@ public class RecordDaoImpl extends BaseDaoImpl implements RecordDao {
             System.out.println("所查询的Record在数据库中不存在： "+record.getId());
             return false;
         }*/
-        super.delete(record);
-        return false;
+
+        super.merge(record);
+        return true;
     }
 
     @Override

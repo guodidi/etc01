@@ -11,9 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/8.
+ * Created by Administrator on 2016/5/2.
  */
 public class RecordPanel extends BasePanel {
+
+
 
     private ApplicationContext context = null;
     private static RecordPanel recordPanel = null;
@@ -25,9 +27,9 @@ public class RecordPanel extends BasePanel {
     }
 
     public static RecordPanel getInstance(ApplicationContext context) {
-       // if (recordPanel == null) {
+        // if (recordPanel == null) {
         //倘若保留了if（record == null）才会new 一个Record那么会造成，你选择的行会一直保持着，无法自动消除
-            recordPanel = new RecordPanel(context);
+        recordPanel = new RecordPanel(context);
         //}
         return recordPanel;
     }
@@ -46,7 +48,7 @@ public class RecordPanel extends BasePanel {
         if (recordList != null) {
             String[][] records = new String[recordList.size()][6];
             for (Record record : recordList) {
-                String[] temp = new String[] {String.valueOf(record.getId()),record.getVehicleId(),record.getVehicleType(),record.getRsuId(),record.getRoadId(),convertTime(record.getTradeTime()),record.getRsuSite(),String.valueOf(record.getFee())};
+                String[] temp = new String[] {String.valueOf(record.getId()),record.getVehicleId(),record.getVehicleType(),record.getRsuId(),record.getRoadId(),convertTime(record.getTradeTime()),record.getTradeStatus(),adjustFee(record.getFee())};
                 records[i++] = temp;
             }
             return records;
@@ -70,5 +72,12 @@ public class RecordPanel extends BasePanel {
             return simpleDateFormat.format(timestamp);
         }
         return null;
+    }
+
+    private String adjustFee(Long fee) {
+        if (fee == null) {
+            return "0";
+        }
+        return String.valueOf(fee);
     }
 }

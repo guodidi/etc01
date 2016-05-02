@@ -28,7 +28,9 @@ public class EncodeData {
     public static String combinedData(String ... strings) {
         StringBuffer stringBuffer = new StringBuffer();
         for (String string : strings) {
-            stringBuffer.append(string+"#");
+            if (string != null && !string.equals("")) {
+                stringBuffer.append(string + "#");
+            }
         }
         //去掉最后一个#
         String resultStr = stringBuffer.substring(0,stringBuffer.length()-1);

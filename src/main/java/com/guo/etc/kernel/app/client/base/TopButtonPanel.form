@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.guo.etc.kernel.app.client.base.TopButtonPanel">
+  <grid id="27dc6" binding="contentPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="127" y="54" width="752" height="65"/>
+    </constraints>
+    <properties>
+      <font name="微软雅黑"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="8d74c" class="javax.swing.JButton" binding="vehicleButton">
+        <constraints/>
+        <properties>
+          <font name="微软雅黑"/>
+          <icon value="image/vehicle1.png"/>
+          <preferredSize width="145" height="45"/>
+          <pressedIcon value="image/vehicle2.png"/>
+          <rolloverIcon value="image/vehicle2.png"/>
+          <text value="车辆管理"/>
+        </properties>
+      </component>
+      <component id="1d163" class="javax.swing.JButton" binding="typeButton">
+        <constraints/>
+        <properties>
+          <font name="微软雅黑"/>
+          <icon value="image/type1.png"/>
+          <preferredSize width="145" height="45"/>
+          <pressedIcon value="image/type2.png"/>
+          <rolloverIcon value="image/type2.png"/>
+          <text value="类型管理"/>
+        </properties>
+      </component>
+      <component id="7b89d" class="javax.swing.JButton" binding="roadButton">
+        <constraints/>
+        <properties>
+          <font name="微软雅黑"/>
+          <icon value="image/road1.png"/>
+          <preferredSize width="145" height="45"/>
+          <pressedIcon value="image/road2.png"/>
+          <rolloverIcon value="image/road2.png"/>
+          <text value="道路管理"/>
+        </properties>
+      </component>
+      <component id="f3710" class="javax.swing.JButton" binding="feeButton">
+        <constraints/>
+        <properties>
+          <font name="微软雅黑"/>
+          <icon value="image/fee1.png"/>
+          <preferredSize width="145" height="45"/>
+          <pressedIcon value="image/fee2.png"/>
+          <rolloverIcon value="image/fee2.png"/>
+          <text value="费用管理"/>
+        </properties>
+      </component>
+      <component id="878d3" class="javax.swing.JButton" binding="simulateButton">
+        <constraints/>
+        <properties>
+          <font name="微软雅黑"/>
+          <icon value="image/simulate1.png"/>
+          <preferredSize width="145" height="45"/>
+          <pressedIcon value="image/simulate2.png"/>
+          <rolloverIcon value="image/simulate2.png"/>
+          <text value="模拟收费"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

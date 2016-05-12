@@ -5,14 +5,9 @@ import com.guo.etc.kernel.app.client.base.TopButtonPanel;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.IOException;
 
 /**
  * Created by Administrator on 2016/4/8.
@@ -58,17 +53,21 @@ public class Start extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-
+/*
+* Error集合：
+* 1  NoClassDefFoundError: org/aopalliance/intercept/MethodInterceptor  在Spring中缺少了AspectJ的Jar包
+* 2  NoClassDefFoundError: org/springframework/aop/TargetSource  在Spring中缺少了spring-aop的Jar包
+* 3  NoClassDefFoundError: org/apache/commons/logging/LogFactory 在pom.xml中缺少了commons-logging的Jar包
+* */
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         try {
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
-            //UIManager.setLookAndFeel(new MotifLookAndFeel());
-            //UIManager.setLookAndFeel(new MetalLookAndFeel());//这个相当于没有变
-            //UIManager.setLookAndFeel(new WindowsLookAndFeel());
         } catch (Exception e) {}
         new Start(context);
+        System.out.println("hello world");
+
     }
 
 }

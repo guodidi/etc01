@@ -2,3 +2,5 @@ target
 .idea
 etc01.iml
 src\main\java\tcpSocket
+src\main\test
+src\main\package

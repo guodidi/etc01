@@ -5,28 +5,30 @@ import org.springframework.context.ApplicationContext;
 import javax.swing.*;
 
 /**
- * Created by Administrator on 2016/5/12.
+ * Created by Administrator on 2016/5/3.
+ *
+ * 该Form已经在2016-5-12晚上21：46被废止了，因为这个类在打包为Jar包之后，无法正常运行，但是IDEA本地进行仿真的时候，完全可以实现
+ * 具体原因，为个人猜测应该是在IDEA生成的Form的问题吧。
  */
-public class SimulateClientPanel extends JPanel implements Runnable {
-    private JPanel contentPanel;
-    private JPanel buttonPanel;
-    private JButton connectButton;
-    private JButton disConnectButton;
-    private JButton sendButton;
+public class SimulateClientPanel_has_abandon extends JPanel implements Runnable {
+    private JPanel contentPanelClient;
     private JPanel inputPanel;
+    private JPanel buttonPanel;
     private JPanel inputPan;
-    private JPanel showPanel;
-    private JTextArea showMessageTA;
     private JTextField ipTF;
     private JTextField portTF;
+    private JTextField desTF;
+    private JTextArea showMessageTA;
+    private JButton connectButton;
+    private JButton sendButton;
+    private JButton disConnectButton;
+    private JPanel showPanel;
     private JLabel ipLabel;
     private JLabel portLabel;
     private JLabel desLabel;
-    private JTextField desTF;
     private JScrollPane showJScroPanel;
 
-    private static SimulateClientPanel simulateClientPanel;
-
+    private static SimulateClientPanel_has_abandon simulateClientPanel = null;
 
     //与文本显示相关的变量
     private StringBuffer sendBuffer = new StringBuffer();
@@ -44,25 +46,24 @@ public class SimulateClientPanel extends JPanel implements Runnable {
     private volatile boolean runStatus = false;
 
     //和数据库相关
-    private ApplicationContext context;
+    private ApplicationContext context = null;
 
 
 
-    private SimulateClientPanel(ApplicationContext applicationContext) {
-        context = applicationContext;
-        System.out.println("Application is : "+context);
-        this.add(contentPanel);
-        this.initCom();
-        this.initActionListener();
+    private SimulateClientPanel_has_abandon(ApplicationContext context){
+        this.context = context;
+        this.add(contentPanelClient);
+        initCom();
+        initActionListener();
+
     }
 
-    public static SimulateClientPanel getInstence(ApplicationContext applicationContext){
+    public static SimulateClientPanel_has_abandon getInstance(ApplicationContext context){
         if (simulateClientPanel == null) {
-            simulateClientPanel = new SimulateClientPanel(applicationContext);
+            simulateClientPanel = new SimulateClientPanel_has_abandon(context);
         }
         return simulateClientPanel;
     }
-
 
     //设置组件的基本行为
     private void initCom() {
@@ -91,7 +92,6 @@ public class SimulateClientPanel extends JPanel implements Runnable {
             connectionStatus = DISCONNECTING;
         });
     }
-
 
     @Override
     public void run() {

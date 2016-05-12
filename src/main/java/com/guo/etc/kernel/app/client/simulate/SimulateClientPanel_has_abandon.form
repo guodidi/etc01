@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.guo.etc.kernel.app.client.simulate.SimulateClientPanel_has_abandon">
+  <grid id="27dc6" binding="contentPanelClient" layout-manager="BorderLayout" hgap="0" vgap="1">
+    <constraints>
+      <xy x="20" y="20" width="540" height="520"/>
+    </constraints>
+    <properties>
+      <font name="微软雅黑"/>
+      <inheritsPopupMenu value="true"/>
+      <minimumSize width="540" height="520"/>
+      <preferredSize width="540" height="520"/>
+    </properties>
+    <border type="none">
+      <font name="微软雅黑" size="18" style="1"/>
+      <title-color color="-7346114"/>
+    </border>
+    <children>
+      <grid id="7667f" binding="inputPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties>
+          <font name="微软雅黑"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="e03a4" binding="inputPan" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="15" left="15" bottom="15" right="15"/>
+            <constraints border-constraint="North"/>
+            <properties>
+              <font name="微软雅黑"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="247d0" class="javax.swing.JLabel" binding="ipLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="微软雅黑"/>
+                  <text value="IP地址"/>
+                </properties>
+              </component>
+              <component id="4c9ba" class="javax.swing.JTextField" binding="ipTF">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="微软雅黑"/>
+                </properties>
+              </component>
+              <component id="a6d9e" class="javax.swing.JLabel" binding="portLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="微软雅黑"/>
+                  <text value="端口"/>
+                </properties>
+              </component>
+              <component id="22ff" class="javax.swing.JTextField" binding="portTF">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="微软雅黑"/>
+                </properties>
+              </component>
+              <component id="6ff72" class="javax.swing.JLabel" binding="desLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="微软雅黑"/>
+                  <text value="连接状态"/>
+                </properties>
+              </component>
+              <component id="96af3" class="javax.swing.JTextField" binding="desTF">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="微软雅黑"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="373f" binding="showPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="5" left="15" bottom="5" right="15"/>
+            <constraints border-constraint="Center"/>
+            <properties>
+              <font name="微软雅黑"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <scrollpane id="6525" binding="showJScroPanel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="1" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <autoscrolls value="true"/>
+                  <background color="-13047767"/>
+                  <font name="微软雅黑"/>
+                  <horizontalScrollBarPolicy value="32"/>
+                  <verticalScrollBarPolicy value="22"/>
+                </properties>
+                <border type="bevel-lowered" title="对话显示" title-justification="1">
+                  <font name="楷体" size="18" style="1"/>
+                  <title-color color="-15976728"/>
+                </border>
+                <children>
+                  <component id="b009a" class="javax.swing.JTextArea" binding="showMessageTA">
+                    <constraints/>
+                    <properties>
+                      <autoscrolls value="true"/>
+                      <background color="-2302756"/>
+                      <editable value="false"/>
+                      <enabled value="false"/>
+                      <font name="微软雅黑"/>
+                      <margin top="10" left="10" bottom="10" right="10"/>
+                      <minimumSize width="300" height="270"/>
+                      <preferredSize width="300" height="270"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="b3ffb" binding="buttonPanel" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="15" left="15" bottom="15" right="15"/>
+        <constraints border-constraint="South"/>
+        <properties>
+          <font name="微软雅黑"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="8948d" class="javax.swing.JButton" binding="connectButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="160" height="45"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="微软雅黑"/>
+              <horizontalTextPosition value="2"/>
+              <icon value="simulate/connect.png"/>
+              <pressedIcon value="simulate/connect1.png"/>
+              <rolloverIcon value="simulate/connect1.png"/>
+              <text value="连接"/>
+            </properties>
+          </component>
+          <component id="2b801" class="javax.swing.JButton" binding="sendButton">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="160" height="45"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="微软雅黑"/>
+              <horizontalTextPosition value="2"/>
+              <icon value="simulate/send.png"/>
+              <pressedIcon value="simulate/send1.png"/>
+              <rolloverIcon value="simulate/send1.png"/>
+              <text value="发送"/>
+            </properties>
+          </component>
+          <component id="6e8fa" class="javax.swing.JButton" binding="disConnectButton">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="160" height="45"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="微软雅黑"/>
+              <horizontalTextPosition value="2"/>
+              <icon value="simulate/disConnect.png"/>
+              <pressedIcon value="simulate/disConnect1.png"/>
+              <rolloverIcon value="simulate/disConnect1.png"/>
+              <text value="断开"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

@@ -22,7 +22,8 @@ public class SimulatePanel extends JPanel{
         this.setVisible(true);
         this.setLayout(new GridLayout(1,2));
         this.add(SimulateServerPanel.getInstance());
-        this.add(SimulateClientPanel.getInstance(context));
+        this.add(SimulateClientPanel.getInstence(context));
+
     }
 
 }

@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.guo.etc.kernel.app.client.base.TopButtonPanel">
   <grid id="27dc6" binding="contentPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
-      <xy x="127" y="54" width="752" height="65"/>
+      <xy x="11" y="54" width="952" height="63"/>
     </constraints>
     <properties>
       <font name="微软雅黑"/>
@@ -62,6 +62,17 @@
           <pressedIcon value="image/simulate2.png"/>
           <rolloverIcon value="image/simulate2.png"/>
           <text value="模拟收费"/>
+        </properties>
+      </component>
+      <component id="18742" class="javax.swing.JButton" binding="quitButton">
+        <constraints/>
+        <properties>
+          <font name="微软雅黑"/>
+          <icon value="image/quit1.png"/>
+          <preferredSize width="145" height="45"/>
+          <pressedIcon value="image/quit2.png"/>
+          <rolloverIcon value="image/quit2.png"/>
+          <text value="退出系统"/>
         </properties>
       </component>
     </children>

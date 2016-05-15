@@ -14,11 +14,11 @@ public class FirstPage extends JPanel {
     }
 
 
-    public static void main(String[] args) {
+/*    public static void a_main(String[] args) {
         JFrame frame = new JFrame("FirstPage");
         frame.setContentPane(new FirstPage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
+    }*/
 }

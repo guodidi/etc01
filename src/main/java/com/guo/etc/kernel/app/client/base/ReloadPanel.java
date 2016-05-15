@@ -1,6 +1,6 @@
 package com.guo.etc.kernel.app.client.base;
 
-import com.guo.etc.kernel.a_launch.Start;
+import com.guo.etc.kernel.app.client.a_main.ETCFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +13,16 @@ public class ReloadPanel {
 
     public static void reloadPanel(BasePanel basePanel) {
         basePanel.viewJPanel();
-        Start.contentPanel.setLayout(new BorderLayout());
-        Start.contentPanel.removeAll();
-        Start.contentPanel.add(basePanel);
-        SwingUtilities.updateComponentTreeUI(Start.contentPanel);
+        ETCFrame.contentPanel.setLayout(new BorderLayout());
+        ETCFrame.contentPanel.removeAll();
+        ETCFrame.contentPanel.add(basePanel);
+        SwingUtilities.updateComponentTreeUI(ETCFrame.contentPanel);
     }
 
     public static void reloadSimulatePanel(JPanel panel) {
-        Start.contentPanel.setLayout(new BorderLayout());
-        Start.contentPanel.removeAll();
-        Start.contentPanel.add(panel);
-        SwingUtilities.updateComponentTreeUI(Start.contentPanel);
+        ETCFrame.contentPanel.setLayout(new BorderLayout());
+        ETCFrame.contentPanel.removeAll();
+        ETCFrame.contentPanel.add(panel);
+        SwingUtilities.updateComponentTreeUI(ETCFrame.contentPanel);
     }
 }

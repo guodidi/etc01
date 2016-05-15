@@ -1,27 +1,33 @@
-package com.guo.etc.kernel.a_launch;
+package com.guo.etc.kernel.app.client.a_main;
 
 import com.guo.etc.kernel.app.client.base.FirstPage;
 import com.guo.etc.kernel.app.client.base.TopButtonPanel;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 
 /**
  * Created by Administrator on 2016/4/8.
  */
-public class Start extends JFrame {
+public class ETCFrame extends JFrame {
 
     //这个contentPanel用来承载所有的内容组件，包括JScrollPanel,Buttons
     public static JPanel contentPanel = new FirstPage();
 
     private ApplicationContext context = null;
+    private static ETCFrame etcFrame;
 
-    public Start(ApplicationContext context) {
+    public static ETCFrame getInstance(ApplicationContext context) {
+        if (etcFrame == null) {
+            etcFrame = new ETCFrame(context);
+        }
+        return etcFrame;
+    }
+
+    private ETCFrame(ApplicationContext context) {
         //setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Administrator\\Desktop\\blue16_006.gif"));
-        setIconImage(Toolkit.getDefaultToolkit().getImage(Start.class.getResource("/image/First/1185783.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ETCFrame.class.getResource("/image/First/etcIcon.png")));
         this.context = context;
         this.setVisible(true);
         this.setTitle("自由流电子收费软件设计");
@@ -60,15 +66,15 @@ public class Start extends JFrame {
 * 3  NoClassDefFoundError: org/apache/commons/logging/LogFactory 在pom.xml中缺少了commons-logging的Jar包
 * */
 
-    public static void main(String[] args) {
+/*    public static void a_main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         try {
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         } catch (Exception e) {}
-        new Start(context);
+        new ETCFrame(context);
         System.out.println("hello world");
 
-    }
+    }*/
 
 }
 

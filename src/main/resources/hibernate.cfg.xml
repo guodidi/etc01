@@ -10,6 +10,7 @@
         <mapping class="com.guo.etc.kernel.model.Rsu"/>
         <mapping class="com.guo.etc.kernel.model.Vehicle"/>
         <mapping class="com.guo.etc.kernel.model.VehicleType"/>
+        <mapping class="com.guo.etc.kernel.model.Admin"/>
         <!--        <mapping class="com.guo.etc.kernel.model.Room"/>
                 <mapping class="com.guo.etc.kernel.model.User"/>
                 <mapping class="com.guo.etc.kernel.model.Book"/>

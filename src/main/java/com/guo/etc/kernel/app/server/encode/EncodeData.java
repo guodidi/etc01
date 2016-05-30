@@ -18,9 +18,6 @@ public class EncodeData {
         stringBuffer.append(subStr);
         stringBuffer.append(BCCStr);
         stringBuffer.append("FF");
-
-        System.out.println("完整的数据帧格式如下：");
-        System.out.println(stringBuffer.toString());
         return stringBuffer.toString();
     }
 
@@ -45,7 +42,6 @@ public class EncodeData {
     * 最后结果-7
     * */
     public static String calculateBCC(String sourceStr){
-        System.out.println("进入BCC运算的字符串是： "+sourceStr);
         byte[] bytes = sourceStr.getBytes();
         byte resultByte =bytes[0];
 
@@ -57,11 +53,9 @@ public class EncodeData {
         String BCC = null;
         if (str.length()==1){
             BCC = "0"+str;
-
         }else {
             BCC = str.substring(str.length()-2);
         }
-        System.out.println(BCC);
         return BCC;
     }
 

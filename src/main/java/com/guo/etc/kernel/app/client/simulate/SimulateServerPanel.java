@@ -69,12 +69,12 @@ public class SimulateServerPanel extends JPanel implements Runnable {
         desTF.setEnabled(false);
         sendButton.setEnabled(false);
         portTF.setText("1234");
-        vehicleIDTF.setText("闽C");
-        vehicleTypeTF.setText("小型车");
         rsuIDTF.setText("10");
         laneIDTF.setText("4");
         ipTF.setText("127.0.0.1");
-        obuIDTF.setText("123");
+        vehicleIDTF.setText("闽D·6589A");
+        vehicleTypeTF.setText("B1");
+        obuIDTF.setText("0D5435A4F8B04962B179C64ACB85B6A8");
         desTF.setText("服务器尚未连接");
     }
 
@@ -105,13 +105,13 @@ public class SimulateServerPanel extends JPanel implements Runnable {
     }
 
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         JFrame frame = new JFrame("SimulateServerPanel");
         frame.setContentPane(SimulateServerPanel.getInstance());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
+    }*/
 
     //一个线程只有当线程中的所有语句执行完毕的时候，才会自动结束
     @Override
@@ -180,12 +180,12 @@ public class SimulateServerPanel extends JPanel implements Runnable {
         disConnectButton.setEnabled(false);
         sendButton.setEnabled(false);
         portTF.setText("1234");
-        vehicleIDTF.setText("闽C");
-        vehicleTypeTF.setText("小型车");
         rsuIDTF.setText("10");
         laneIDTF.setText("4");
         ipTF.setText("127.0.0.1");
-        obuIDTF.setText("123");
+        vehicleIDTF.setText("闽D·6589A");
+        vehicleTypeTF.setText("B1");
+        obuIDTF.setText("0D5435A4F8B04962B179C64ACB85B6A8");
     }
 
     //建立好Socket连接之后的界面效果

@@ -31,41 +31,31 @@ public class DecodeData {
     }
 
     private static boolean adjustBCC(String sourceStr) {
-        System.out.println(sourceStr);
         String BCC = sourceStr.substring(sourceStr.length()-2);
-        System.out.println("BCC: "+BCC);
         byte[] bytes = sourceStr.substring(0,sourceStr.length()-2).getBytes();
         byte flag = bytes[0];
         for (int i=1;i<bytes.length;i++){
             flag = (byte) (flag^bytes[i]);
         }
         String str = (Integer.toHexString(flag));
-        System.out.println("str的length is ： "+str.length());
-        System.out.println("Str:"+str);
         String testBCC = null;
         if (str.length()==1){
             testBCC = "0"+str;
         }else {
             testBCC = str.substring(str.length()-2);
         }
-        System.out.println("testBCC"+testBCC);
         if (BCC.equals(testBCC)){
-            System.out.println("BCC验证成功");
             return true;
         }
-        System.out.println("BCC验证失败");
         return false;
     }
 
     //解析得到相应的数据
     public static String[] getInfo(String sourceStr){
         //定义正则匹配
-        System.out.println("getInfo : "+sourceStr);
-        System.out.println("- - - - - - - - - - - - - - - - - - - - -");
         Pattern pattern = Pattern.compile("#");
         String[] result = null;
         String subStr = sourceStr.substring(0,sourceStr.length()-2);
-        System.out.println("subStr : "+subStr);
         result = pattern.split(subStr);
         return result;
     }

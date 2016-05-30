@@ -99,16 +99,19 @@
             <children>
               <scrollpane id="6525" binding="showJScroPanel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="1" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false">
+                    <preferred-size width="500" height="300"/>
+                    <maximum-size width="500" height="300"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <autoscrolls value="true"/>
                   <background color="-13047767"/>
                   <font name="微软雅黑"/>
                   <horizontalScrollBarPolicy value="32"/>
-                  <verticalScrollBarPolicy value="22"/>
+                  <verticalScrollBarPolicy value="20"/>
                 </properties>
-                <border type="bevel-lowered" title="对话显示" title-justification="1">
+                <border type="bevel-lowered" title="对话显示" title-justification="2" title-position="2">
                   <font name="楷体" size="18" style="1"/>
                   <title-color color="-15976728"/>
                 </border>
@@ -122,9 +125,10 @@
                       <enabled value="false"/>
                       <font name="微软雅黑"/>
                       <margin top="10" left="10" bottom="10" right="10"/>
-                      <minimumSize width="300" height="270"/>
-                      <preferredSize width="300" height="270"/>
+                      <minimumSize width="500" height="300"/>
+                      <preferredSize width="500" height="300"/>
                       <text value=""/>
+                      <wrapStyleWord value="false"/>
                     </properties>
                   </component>
                 </children>

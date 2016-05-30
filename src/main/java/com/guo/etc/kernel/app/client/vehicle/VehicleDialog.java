@@ -9,6 +9,7 @@ import com.guo.etc.kernel.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class VehicleDialog extends JDialog {
@@ -41,6 +42,7 @@ public class VehicleDialog extends JDialog {
         setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VehicleDialog.class.getResource("/image/vehicle2.png")));
         this.context = context;
         this.selectId = selectId;
         confirmButton.addActionListener(e -> {
@@ -69,6 +71,7 @@ public class VehicleDialog extends JDialog {
         setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VehicleDialog.class.getResource("/image/vehicle2.png")));
         confirmButton.addActionListener(e -> {
             String command = e.getActionCommand();
             if (command == addName) {

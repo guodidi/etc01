@@ -160,7 +160,10 @@
             <children>
               <scrollpane id="3c6cd" binding="showJScroPanel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="500" height="330"/>
+                    <maximum-size width="500" height="330"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <font name="微软雅黑"/>
@@ -175,8 +178,8 @@
                       <font name="微软雅黑"/>
                       <lineWrap value="false"/>
                       <margin top="10" left="10" bottom="10" right="10"/>
-                      <minimumSize width="300" height="270"/>
-                      <preferredSize width="300" height="270"/>
+                      <minimumSize width="500" height="330"/>
+                      <preferredSize width="500" height="330"/>
                     </properties>
                   </component>
                 </children>

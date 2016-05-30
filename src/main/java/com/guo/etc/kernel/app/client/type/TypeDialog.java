@@ -7,6 +7,7 @@ import com.guo.etc.kernel.service.TypeService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class TypeDialog extends JDialog {
@@ -37,6 +38,7 @@ public class TypeDialog extends JDialog {
         setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(TypeDialog.class.getResource("/image/type2.png")));
         this.context = context;
         this.selectId = selectId;
         confirmButton.addActionListener(e -> {
@@ -65,6 +67,7 @@ public class TypeDialog extends JDialog {
         setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(TypeDialog.class.getResource("/image/type2.png")));
         confirmButton.addActionListener(e -> {
             String command = e.getActionCommand();
             if (command == addName) {

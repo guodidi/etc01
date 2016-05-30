@@ -34,8 +34,7 @@ public class ETCFrame extends JFrame {
         initWindows();
         initContainer();
         //更新显示面板
-        //image/First/2.png
-       SwingUtilities.updateComponentTreeUI(contentPanel);
+        SwingUtilities.updateComponentTreeUI(contentPanel);
     }
 
 

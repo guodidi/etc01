@@ -33,6 +33,7 @@ public class LoginAdmin extends JFrame {
     private JLabel statusLabel;
     private ApplicationContext context;
     private static LoginAdmin loginAdmin;
+    private int count = 0;
 
     public static LoginAdmin getInstance(ApplicationContext context) {
         if (null == loginAdmin) {
@@ -65,18 +66,24 @@ public class LoginAdmin extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (LoginAdmin.this.adjustAdmin()) {
-                    SwingUtilities.invokeLater(()->{
-                        ETCFrame.getInstance(context);
-                    });
-                    LoginAdmin.this.dispose();
+                ++count;
+                if (count <= 3) {
+                    if (LoginAdmin.this.adjustAdmin()) {
+                        SwingUtilities.invokeLater(()->{
+                            ETCFrame.getInstance(context);
+                        });
+                        LoginAdmin.this.dispose();
+                    }else {
+                        JOptionPane.showMessageDialog(null, "这是第"+ count+"次密码输入错误，请重新输入！", "提示",
+                                JOptionPane.YES_OPTION);
+                        clearTF();
+                        statusLabel.setText("登录状态： 请输入正确的账号和密码重新登录 . . . ");
+                        return;
+                    }
                 }else {
-                    JOptionPane.showMessageDialog(null, "密码错误，请重新输入！", "提示",
+                    JOptionPane.showMessageDialog(null, "密码输入错误超过"+ (--count) +"次，程序即将关闭！", "提示",
                             JOptionPane.YES_OPTION);
-                    clearTF();
-                    statusLabel.setText("登录状态： 请输入正确的账号和密码重新登录 . . . ");
-
-                    return;
+                    System.exit(0);
                 }
             }
         });
@@ -114,3 +121,4 @@ public class LoginAdmin extends JFrame {
     }
 
 }
+

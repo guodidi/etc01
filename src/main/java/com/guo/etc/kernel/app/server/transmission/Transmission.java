@@ -118,7 +118,6 @@ public class Transmission {
     public static boolean sendMes(StringBuffer sendMessage) {
         out.print(sendMessage);
         out.flush();
-        System.out.println("要发送的数据是："+sendMessage);
         return true;
     }
 

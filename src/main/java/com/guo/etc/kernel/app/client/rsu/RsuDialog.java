@@ -5,6 +5,7 @@ import com.guo.etc.kernel.service.RsuService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class RsuDialog extends JDialog {
@@ -35,6 +36,7 @@ public class RsuDialog extends JDialog {
         setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(RsuDialog.class.getResource("/image/road2.png")));
         this.context = context;
         this.selectId = selectId;
         confirmButton.addActionListener(e -> {
@@ -62,6 +64,7 @@ public class RsuDialog extends JDialog {
         setContentPane(contentPanel);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(RsuDialog.class.getResource("/image/road2.png")));
         confirmButton.addActionListener(e -> {
             String command = e.getActionCommand();
             if (command == addName) {
